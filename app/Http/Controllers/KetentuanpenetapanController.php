@@ -164,8 +164,8 @@ class KetentuanpenetapanController extends Controller
 
         logCreate("ketentuanpenetapan", $result);
 
-        $successMessage = successMessageCreate("ketentuanpenetapan");
-        return redirect()->back()->with('successMessage', $successMessage);
+        $successMessage = successMessageCreate("Ketentuan Penetapan");
+        return redirect()->route('ketentuanpenetapans.index')->with('successMessage', $successMessage);
     }
 
     /**
@@ -219,8 +219,8 @@ class KetentuanpenetapanController extends Controller
 
         logUpdate("ketentuanpenetapan", $ketentuanpenetapan, $newData);
 
-        $successMessage = successMessageUpdate("ketentuanpenetapan");
-        return redirect()->back()->with('successMessage', $successMessage);
+        $successMessage = successMessageUpdate("Ketentuan Penetapan");
+        return redirect()->route('ketentuanpenetapans.index')->with('successMessage', $successMessage);
     }
 
     /**
@@ -249,8 +249,8 @@ class KetentuanpenetapanController extends Controller
         $this->ketentuanpenetapanRepository->delete($ketentuanpenetapan->id);
         logDelete("ketentuanpenetapan", $ketentuanpenetapan);
 
-        $successMessage = successMessageDelete("ketentuanpenetapan");
-        return redirect()->back()->with('successMessage', $successMessage);
+        $successMessage = successMessageDelete("Ketentuan Penetapan");
+        return redirect()->route('ketentuanpenetapans.index')->with('successMessage', $successMessage);
     }
 
     /**
@@ -277,8 +277,8 @@ class KetentuanpenetapanController extends Controller
     public function importExcel(\App\Http\Requests\ImportExcelRequest $request)
     {
         Excel::import(new KetentuanpenetapanImport, $request->file('import_file'));
-        $successMessage = successMessageImportExcel("ketentuanpenetapan");
-        return redirect()->back()->with('successMessage', $successMessage);
+        $successMessage = successMessageImportExcel("Ketentuan Penetapan");
+        return redirect()->route('ketentuanpenetapans.index')->with('successMessage', $successMessage);
     }
 
     /**

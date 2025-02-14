@@ -9,6 +9,7 @@ use App\Models\Permohonanmasyarakat;
 use App\Models\Peraturan;
 use App\Models\Biayapermohonan;
 use App\Models\Uploadpenetapan;
+use App\Models\Ketentuanpenetapan;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -57,7 +58,8 @@ class FrontendController extends Controller
 
     public function uploadPenetapan()
     {
-        return view('frontend.upload-penetapan.form');
+        $ketentuan = Ketentuanpenetapan::all();
+        return view('frontend.upload-penetapan.index', compact('ketentuan'));
     }
 
     public function storePenetapan(Request $request)

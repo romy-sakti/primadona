@@ -3,7 +3,6 @@
 @section('title', 'Upload Penetapan - PRIMADONA')
 
 @section('content')
-<!-- Page Banner Area -->
 <div class="page-banner bg-1">
     <div class="d-table">
         <div class="d-table-cell">
@@ -20,10 +19,24 @@
     </div>
 </div>
 
-<!-- Services Details Area -->
 <div class="services-details-area ptb-100">
     <div class="container">
         <div class="row justify-content-center">
+            <!-- Ketentuan Penetapan -->
+            <div class="col-12 mb-5">
+                <div class="services-details">
+                    <div class="services-details-content">
+                        <h3>Ketentuan Penetapan</h3>
+                        @foreach($ketentuan as $item)
+                        <div class="mb-4">
+                            {!! $item->konten !!}
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Upload -->
             <div class="col-12">
                 <div class="services-details">
                     <div class="services-details-content">
@@ -45,41 +58,35 @@
                                     <div class="row">
                                         <div class="col-12 mb-4">
                                             <div class="form-group">
-                                                <label for="nomor_perkara" class="form-label fw-bold">
+                                                <label class="form-label fw-bold">
                                                     Nomor Perkara <span class="text-danger">*</span>
                                                 </label>
                                                 <input type="text"
                                                     class="form-control @error('nomor_perkara') is-invalid @enderror"
-                                                    name="nomor_perkara" id="nomor_perkara"
-                                                    value="{{ old('nomor_perkara') }}"
+                                                    name="nomor_perkara" value="{{ old('nomor_perkara') }}"
                                                     placeholder="Masukkan nomor perkara" required>
                                                 @error('nomor_perkara')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
+                                                <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
 
                                         <div class="col-12 mb-4">
                                             <div class="form-group">
-                                                <label for="file_penetapan" class="form-label fw-bold">
+                                                <label class="form-label fw-bold">
                                                     File Penetapan <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="input-group">
                                                     <input type="file"
                                                         class="form-control @error('file_penetapan') is-invalid @enderror"
-                                                        name="file_penetapan" id="file_penetapan"
-                                                        accept="application/pdf" required>
-                                                    <span class="input-group-text bg-light text-muted">
+                                                        name="file_penetapan" accept="application/pdf" required>
+                                                    <span class="input-group-text bg-light">
                                                         <i class="las la-file-pdf"></i>
                                                     </span>
                                                 </div>
                                                 <small class="text-muted">Format file: PDF, Maksimal ukuran: 2MB</small>
                                                 @error('file_penetapan')
-                                                <div class="invalid-feedback d-block">
-                                                    {{ $message }}
-                                                </div>
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>

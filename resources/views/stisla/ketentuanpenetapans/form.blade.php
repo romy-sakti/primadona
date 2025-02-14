@@ -36,13 +36,11 @@
                         @endisset
 
                         <div class="row">
-
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="konten">{{ __('Ketentuan') }} <span class="text-danger">*</span></label>
-                                    <textarea class="form-control tinymce @error('konten') is-invalid @enderror"
-                                        id="konten" name="konten"
-                                        required>{{ isset($data) ? $data->konten : old('konten') }}</textarea>
+                                    <textarea name="konten" id="editor"
+                                        class="form-control @error('konten') is-invalid @enderror">{{ isset($d) ? $d->konten : old('konten') }}</textarea>
                                     @error('konten')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -71,22 +69,43 @@
 @endsection
 
 @push('css')
-<link rel="stylesheet" href="{{ asset('library/tinymce/js/tinymce/skins/ui/oxide/skin.min.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
+<style>
+    .note-editor {
+        margin-bottom: 10px;
+    }
+
+    .note-editor.note-frame {
+        border: 1px solid #ddd;
+    }
+
+    .note-editor.note-frame .note-editing-area .note-editable {
+        min-height: 300px;
+        background: #fff;
+    }
+</style>
 @endpush
 
 @push('js')
-<script src="{{ asset('library/tinymce/js/tinymce/tinymce.min.js') }}"></script>
-@endpush
-
-@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
 <script>
-    tinymce.init({
-    selector: '.tinymce',
-    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-    height: 500,
-    promotion: false,
-    branding: false
-});
+    $(document).ready(function() {
+        $('#editor').summernote({
+            height: 300,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ],
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Times New Roman'],
+            fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '24', '36']
+        });
+    });
 </script>
 @endpush
