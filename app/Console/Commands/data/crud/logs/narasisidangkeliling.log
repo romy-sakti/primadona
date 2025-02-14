@@ -1,0 +1,18 @@
+Created migration file => C:\laragon\www\laravel-11-template-main\database\migrations/2025_01_30_163049_create_narasisidangkeliling_table.php
+Created seeder file => C:\laragon\www\laravel-11-template-main\database\seeders/NarasisidangkelilingSeeder.php
+Created model file => C:\laragon\www\laravel-11-template-main\app\Models/Narasisidangkeliling.php
+Created controller file => C:\laragon\www\laravel-11-template-main\app\Http/Controllers/NarasisidangkelilingController.php
+Created api controller file => C:\laragon\www\laravel-11-template-main\app\Http/Controllers/Api/NarasisidangkelilingController.php
+Created repository file => C:\laragon\www\laravel-11-template-main\app\Repositories/NarasisidangkelilingRepository.php
+Created request file => C:\laragon\www\laravel-11-template-main\app\Http/Requests/NarasisidangkelilingRequest.php
+Created api request file => C:\laragon\www\laravel-11-template-main\app\Http/Requests/Api/NarasisidangkelilingRequest.php
+Created export excel file => C:\laragon\www\laravel-11-template-main\app\Exports/NarasisidangkelilingExport.php
+Created import excel file => C:\laragon\www\laravel-11-template-main\app\Imports/NarasisidangkelilingImport.php
+Created view index file => C:\laragon\www\laravel-11-template-main\resources/views/stisla/narasisidangkelilings/index.blade.php
+Created view form file => C:\laragon\www\laravel-11-template-main\resources/views/stisla/narasisidangkelilings/form.blade.php
+Created view export pdf file => C:\laragon\www\laravel-11-template-main\resources/views/stisla/narasisidangkelilings/export-pdf.blade.php
+Created view export excel example file => C:\laragon\www\laravel-11-template-main\resources/views/stisla/narasisidangkelilings/export-excel-example.blade.php
+Created permission file => C:\laragon\www\laravel-11-template-main\database\seeders/data/permission-modules/narasisidangkelilings.json
+Created routing file => C:\laragon\www\laravel-11-template-main\routes/modules/narasisidangkeliling.php
+Created menu setting file => C:\laragon\www\laravel-11-template-main\database\seeders/data/menu-modules/narasisidangkelilings.json
+Created 17 files

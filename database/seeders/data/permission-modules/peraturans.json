@@ -1,0 +1,50 @@
+[
+    {
+        "name": "peraturan",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "peraturan"
+    },
+    {
+        "name": "peraturan Tambah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "peraturan"
+    },
+    {
+        "name": "peraturan Impor Excel",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "peraturan"
+    },
+    {
+        "name": "peraturan Ubah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "peraturan"
+    },
+    {
+        "name": "peraturan Hapus",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "peraturan"
+    },
+    {
+        "name": "peraturan Ekspor",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "peraturan"
+    }
+]

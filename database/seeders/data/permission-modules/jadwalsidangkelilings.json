@@ -1,0 +1,50 @@
+[
+    {
+        "name": "jadwal_sidang_keliling",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "jadwal_sidang_keliling"
+    },
+    {
+        "name": "jadwal_sidang_keliling Tambah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "jadwal_sidang_keliling"
+    },
+    {
+        "name": "jadwal_sidang_keliling Impor Excel",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "jadwal_sidang_keliling"
+    },
+    {
+        "name": "jadwal_sidang_keliling Ubah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "jadwal_sidang_keliling"
+    },
+    {
+        "name": "jadwal_sidang_keliling Hapus",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "jadwal_sidang_keliling"
+    },
+    {
+        "name": "jadwal_sidang_keliling Ekspor",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "jadwal_sidang_keliling"
+    }
+]

@@ -1,0 +1,12 @@
+{
+    "group_name": "Navigasi",
+    "menus": [
+        {
+            "menu_name": "biaya_permohonan",
+            "route_name": "biayapermohonans.index",
+            "icon": "",
+            "permission": "biaya_permohonan",
+            "is_active_if_url_includes": "biayapermohonans*"
+        }
+    ]
+}

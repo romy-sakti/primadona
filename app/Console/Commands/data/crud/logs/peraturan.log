@@ -1,0 +1,18 @@
+Created migration file => C:\laragon\www\laravel-11-template-main\database\migrations/2025_01_31_093613_create_peraturan_table.php
+Created seeder file => C:\laragon\www\laravel-11-template-main\database\seeders/PeraturanSeeder.php
+Created model file => C:\laragon\www\laravel-11-template-main\app\Models/Peraturan.php
+Created controller file => C:\laragon\www\laravel-11-template-main\app\Http/Controllers/PeraturanController.php
+Created api controller file => C:\laragon\www\laravel-11-template-main\app\Http/Controllers/Api/PeraturanController.php
+Created repository file => C:\laragon\www\laravel-11-template-main\app\Repositories/PeraturanRepository.php
+Created request file => C:\laragon\www\laravel-11-template-main\app\Http/Requests/PeraturanRequest.php
+Created api request file => C:\laragon\www\laravel-11-template-main\app\Http/Requests/Api/PeraturanRequest.php
+Created export excel file => C:\laragon\www\laravel-11-template-main\app\Exports/PeraturanExport.php
+Created import excel file => C:\laragon\www\laravel-11-template-main\app\Imports/PeraturanImport.php
+Created view index file => C:\laragon\www\laravel-11-template-main\resources/views/stisla/peraturans/index.blade.php
+Created view form file => C:\laragon\www\laravel-11-template-main\resources/views/stisla/peraturans/form.blade.php
+Created view export pdf file => C:\laragon\www\laravel-11-template-main\resources/views/stisla/peraturans/export-pdf.blade.php
+Created view export excel example file => C:\laragon\www\laravel-11-template-main\resources/views/stisla/peraturans/export-excel-example.blade.php
+Created permission file => C:\laragon\www\laravel-11-template-main\database\seeders/data/permission-modules/peraturans.json
+Created routing file => C:\laragon\www\laravel-11-template-main\routes/modules/peraturan.php
+Created menu setting file => C:\laragon\www\laravel-11-template-main\database\seeders/data/menu-modules/peraturans.json
+Created 17 files

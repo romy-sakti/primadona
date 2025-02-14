@@ -1,0 +1,12 @@
+{
+    "group_name": "Navigasi",
+    "menus": [
+        {
+            "menu_name": "peraturan",
+            "route_name": "peraturans.index",
+            "icon": "",
+            "permission": "peraturan",
+            "is_active_if_url_includes": "peraturans*"
+        }
+    ]
+}

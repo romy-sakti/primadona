@@ -1,0 +1,50 @@
+[
+    {
+        "name": "permohonan_masyarakat",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "permohonan_masyarakat"
+    },
+    {
+        "name": "permohonan_masyarakat Tambah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "permohonan_masyarakat"
+    },
+    {
+        "name": "permohonan_masyarakat Impor Excel",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "permohonan_masyarakat"
+    },
+    {
+        "name": "permohonan_masyarakat Ubah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "permohonan_masyarakat"
+    },
+    {
+        "name": "permohonan_masyarakat Hapus",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "permohonan_masyarakat"
+    },
+    {
+        "name": "permohonan_masyarakat Ekspor",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "permohonan_masyarakat"
+    }
+]

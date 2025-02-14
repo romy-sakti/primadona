@@ -1,0 +1,50 @@
+[
+    {
+        "name": "biaya_permohonan",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "biaya_permohonan"
+    },
+    {
+        "name": "biaya_permohonan Tambah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "biaya_permohonan"
+    },
+    {
+        "name": "biaya_permohonan Impor Excel",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "biaya_permohonan"
+    },
+    {
+        "name": "biaya_permohonan Ubah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "biaya_permohonan"
+    },
+    {
+        "name": "biaya_permohonan Hapus",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "biaya_permohonan"
+    },
+    {
+        "name": "biaya_permohonan Ekspor",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "biaya_permohonan"
+    }
+]

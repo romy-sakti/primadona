@@ -1,0 +1,12 @@
+{
+    "group_name": "Navigasi",
+    "menus": [
+        {
+            "menu_name": "narasi_sidang_keliling",
+            "route_name": "narasisidangkelilings.index",
+            "icon": "",
+            "permission": "narasi_sidang_keliling",
+            "is_active_if_url_includes": "narasisidangkelilings*"
+        }
+    ]
+}
