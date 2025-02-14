@@ -1,0 +1,1 @@
+{"title":"ketentuanpenetapan","icon":null,"model":"Ketentuanpenetapan","columns":[{"type":"ai"},{"name":"konten","type":"text","label":"Ketentuan","form":{"type":"inputtext","required":2},"validations":{"store":["required"],"update":["required"]},"nullable":true,"unique":false,"foreign":null},{"type":"timestamps"}]}

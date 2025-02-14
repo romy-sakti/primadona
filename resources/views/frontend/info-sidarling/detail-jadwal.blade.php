@@ -34,7 +34,12 @@
                         <table class="table table-borderless">
                             <tr>
                                 <td width="150"><i class="las la-calendar"></i> Tanggal</td>
-                                <td>: {{ \Carbon\Carbon::parse($jadwal->tanggal_sidang)->format('d M Y H:i') }} WIB</td>
+                                <td>: {{ \Carbon\Carbon::parse($jadwal->tanggal_sidang)->format('d M Y') }}</td>
+                            </tr>
+                            <tr>
+                                <td width="150"><i class="las la-clock"></i> Jam</td>
+                                <td>: {{ $jadwal->jam ? \Carbon\Carbon::parse($jadwal->jam)->format('H:i') : '00:00' }}
+                                    WIB</td>
                             </tr>
                             <tr>
                                 <td><i class="las la-user"></i> Nama Pemohon</td>
@@ -64,8 +69,8 @@
                     </div>
                 </div>
 
-                <div class="mt-4">
-                    <a href="{{ route('sidarling') }}" class="btn btn-primary">
+                <div class="mt-4 text-end">
+                    <a href="{{ route('all-jadwal-sidarling') }}" class="btn btn-info btn-sm">
                         <i class="las la-arrow-left"></i> Kembali
                     </a>
                 </div>

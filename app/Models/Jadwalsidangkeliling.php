@@ -23,6 +23,7 @@ class Jadwalsidangkeliling extends Model
      */
     protected $fillable = [
 		'tanggal_sidang',
+		'jam',
 		'nama_pemohon',
 		'tempat_sidang',
 		'agenda_sidang',

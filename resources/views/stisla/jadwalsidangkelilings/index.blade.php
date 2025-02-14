@@ -114,6 +114,7 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th class="text-center">{{ __('Tanggal Sidang') }}</th>
+                                    <th class="text-center">{{ __('Jam') }}</th>
                                     <th class="text-center">{{ __('Nama Pemohon') }}</th>
                                     <th class="text-center">{{ __('Tempat Sidang') }}</th>
                                     <th class="text-center">{{ __('Agenda Sidang') }}</th>
@@ -128,6 +129,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->tanggal_sidang }}</td>
+                                    <td>{{ $item->jam }}</td>
                                     <td>{{ $item->nama_pemohon }}</td>
                                     <td>{{ $item->tempat_sidang }}</td>
                                     <td>{{ $item->agenda_sidang }}</td>
@@ -202,6 +204,10 @@ $excelExampleLink])
                             <tr>
                                 <th>Tanggal Sidang</th>
                                 <td>{{ date('d F Y', strtotime($item->tanggal_sidang)) }}</td>
+                            </tr>
+                            <tr>
+                                <th>Jam Sidang</th>
+                                <td>{{ $item->jam }}</td>
                             </tr>
                             <tr>
                                 <th>Nama Pemohon</th>

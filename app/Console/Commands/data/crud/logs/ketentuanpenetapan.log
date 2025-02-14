@@ -1,0 +1,18 @@
+Created migration file => C:\laragon\www\primadona\database\migrations/2025_02_14_114005_create_ketentuanpenetapan_table.php
+Created seeder file => C:\laragon\www\primadona\database\seeders/KetentuanpenetapanSeeder.php
+Created model file => C:\laragon\www\primadona\app\Models/Ketentuanpenetapan.php
+Created controller file => C:\laragon\www\primadona\app\Http/Controllers/KetentuanpenetapanController.php
+Created api controller file => C:\laragon\www\primadona\app\Http/Controllers/Api/KetentuanpenetapanController.php
+Created repository file => C:\laragon\www\primadona\app\Repositories/KetentuanpenetapanRepository.php
+Created request file => C:\laragon\www\primadona\app\Http/Requests/KetentuanpenetapanRequest.php
+Created api request file => C:\laragon\www\primadona\app\Http/Requests/Api/KetentuanpenetapanRequest.php
+Created export excel file => C:\laragon\www\primadona\app\Exports/KetentuanpenetapanExport.php
+Created import excel file => C:\laragon\www\primadona\app\Imports/KetentuanpenetapanImport.php
+Created view index file => C:\laragon\www\primadona\resources/views/stisla/ketentuanpenetapans/index.blade.php
+Created view form file => C:\laragon\www\primadona\resources/views/stisla/ketentuanpenetapans/form.blade.php
+Created view export pdf file => C:\laragon\www\primadona\resources/views/stisla/ketentuanpenetapans/export-pdf.blade.php
+Created view export excel example file => C:\laragon\www\primadona\resources/views/stisla/ketentuanpenetapans/export-excel-example.blade.php
+Created permission file => C:\laragon\www\primadona\database\seeders/data/permission-modules/ketentuanpenetapans.json
+Created routing file => C:\laragon\www\primadona\routes/modules/ketentuanpenetapan.php
+Created menu setting file => C:\laragon\www\primadona\database\seeders/data/menu-modules/ketentuanpenetapans.json
+Created 17 files

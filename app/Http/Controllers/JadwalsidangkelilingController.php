@@ -141,6 +141,7 @@ class JadwalsidangkelilingController extends Controller
     {
         $data = $request->only([
 			'tanggal_sidang',
+			'jam',
 			'nama_pemohon',
 			'tempat_sidang',
 			'agenda_sidang',
@@ -202,6 +203,7 @@ class JadwalsidangkelilingController extends Controller
     {
         $data = $request->only([
 			'tanggal_sidang',
+			'jam',
 			'nama_pemohon',
 			'tempat_sidang',
 			'agenda_sidang',

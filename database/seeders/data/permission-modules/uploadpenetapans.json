@@ -1,0 +1,50 @@
+[
+    {
+        "name": "uploadpenetapan",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "uploadpenetapan"
+    },
+    {
+        "name": "uploadpenetapan Tambah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "uploadpenetapan"
+    },
+    {
+        "name": "uploadpenetapan Impor Excel",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "uploadpenetapan"
+    },
+    {
+        "name": "uploadpenetapan Ubah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "uploadpenetapan"
+    },
+    {
+        "name": "uploadpenetapan Hapus",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "uploadpenetapan"
+    },
+    {
+        "name": "uploadpenetapan Ekspor",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "uploadpenetapan"
+    }
+]

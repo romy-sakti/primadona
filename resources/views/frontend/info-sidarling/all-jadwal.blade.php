@@ -37,7 +37,8 @@
                             <div>
                                 <h6 class="fw-bold mb-1">{{ \Carbon\Carbon::parse($item->tanggal_sidang)->format('d M
                                     Y') }}</h6>
-                                <small class="text-muted">{{ \Carbon\Carbon::parse($item->tanggal_sidang)->format('H:i')
+                                <small class="text-muted">{{
+                                    $item->jam ? \Carbon\Carbon::parse($item->jam)->format('H:i') : '00:00'
                                     }} WIB</small>
                             </div>
                         </div>

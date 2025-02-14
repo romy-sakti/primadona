@@ -1,0 +1,50 @@
+[
+    {
+        "name": "ketentuanpenetapan",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "ketentuanpenetapan"
+    },
+    {
+        "name": "ketentuanpenetapan Tambah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "ketentuanpenetapan"
+    },
+    {
+        "name": "ketentuanpenetapan Impor Excel",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "ketentuanpenetapan"
+    },
+    {
+        "name": "ketentuanpenetapan Ubah",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "ketentuanpenetapan"
+    },
+    {
+        "name": "ketentuanpenetapan Hapus",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "ketentuanpenetapan"
+    },
+    {
+        "name": "ketentuanpenetapan Ekspor",
+        "roles": [
+            "superadmin",
+            "admin"
+        ],
+        "group": "ketentuanpenetapan"
+    }
+]

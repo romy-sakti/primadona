@@ -8,6 +8,7 @@ use App\Models\Narasisidangkeliling;
 use App\Models\Permohonanmasyarakat;
 use App\Models\Peraturan;
 use App\Models\Biayapermohonan;
+use App\Models\Uploadpenetapan;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -54,5 +55,27 @@ class FrontendController extends Controller
         return view('frontend.biaya.biaya', compact('biaya'));
     }
 
+    public function uploadPenetapan()
+    {
+        return view('frontend.upload-penetapan.form');
+    }
 
+    public function storePenetapan(Request $request)
+    {
+        $request->validate([
+            'nomor_perkara' => 'required|string',
+            'file_penetapan' => 'required|mimes:pdf|max:2048', // maksimal 2MB, format PDF
+        ]);
+
+        $file = $request->file('file_penetapan');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/penetapan'), $fileName);
+
+        Uploadpenetapan::create([
+            'nomor_perkara' => $request->nomor_perkara,
+            'file_penetapan' => $fileName,
+        ]);
+
+        return redirect()->back()->with('success', 'Penetapan berhasil diupload');
+    }
 }

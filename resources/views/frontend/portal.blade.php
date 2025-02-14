@@ -62,6 +62,13 @@
 
                 </div>
             </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="our-service-card">
+                    <i class="las la-file-upload"></i>
+                    <h3><a href="{{ route('upload-penetapan') }}">Upload<span> Penetapan</span></a></h3>
+                    <p>Layanan upload dokumen penetapan pengadilan.</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -48,6 +48,17 @@
                             </div>
 
                             <div class="col-md-6">
+                                @include('stisla.includes.forms.inputs.input', [
+                                'required' => true,
+                                'type' => 'time',
+                                'id' => 'jam',
+                                'name' => 'jam',
+                                'label' => __('Jam Sidang'),
+                                'value' => isset($d) ? $d->jam : ''
+                                ])
+                            </div>
+
+                            <div class="col-md-6">
                                 @include('stisla.includes.forms.inputs.input', ['required'=>true, 'type'=>'text',
                                 'id'=>'nama_pemohon', 'name'=>'nama_pemohon', 'label'=>__('Nama Pemohon')])
                             </div>
