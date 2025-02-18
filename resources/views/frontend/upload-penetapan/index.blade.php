@@ -27,11 +27,17 @@
                 <div class="services-details">
                     <div class="services-details-content">
                         <h3>Ketentuan Penetapan</h3>
+                        @if(!empty($ketentuan))
                         @foreach($ketentuan as $item)
                         <div class="mb-4">
                             {!! $item->konten !!}
                         </div>
                         @endforeach
+                        @else
+                        <div class="alert alert-info">
+                            Belum ada data ketentuan penetapan.
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
