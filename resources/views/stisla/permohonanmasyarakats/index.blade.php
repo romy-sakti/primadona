@@ -95,7 +95,7 @@
                         @include('stisla.includes.forms.buttons.btn-import-excel')
                         @endif
 
-                        @if ($canCreate)
+                        @if ($canCreate && !auth()->user()->hasRole('dukcapiltjt'))
                         @include('stisla.includes.forms.buttons.btn-add', ['link' => $routeCreate])
                         @endif
                     </div>

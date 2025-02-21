@@ -75,6 +75,14 @@ class UserManagementController extends StislaController
     private function getDetailData(User $user, bool $isDetail)
     {
         $roleOptions = $this->userRepository->getRoleOptions();
+
+        // Filter role options untuk PNTJT dan Dukcapil TJT
+        if (auth()->user()->hasRole(['pntjt', 'dukcapiltjt'])) {
+            $roleOptions = collect($roleOptions)->filter(function($value, $key) {
+                return in_array($key, ['user', 'pntjt', 'dukcapiltjt']);
+            })->toArray();
+        }
+
         if ($user->roles->count() > 1)
             $user->role = $user->roles->pluck('id')->toArray();
         else
@@ -153,6 +161,14 @@ class UserManagementController extends StislaController
      */
     public function edit(User $user)
     {
+        // Cek akses edit berdasarkan role
+        if (auth()->user()->hasRole(['pntjt', 'dukcapiltjt'])) {
+            if ($user->hasRole(['superadmin', 'admin'])) {
+                return redirect()->route('user-management.users.index')
+                    ->with('errorMessage', 'Anda tidak memiliki akses untuk mengubah data pengguna ini.');
+            }
+        }
+
         $data = $this->getDetailData($user, false);
         return view('stisla.user-management.users.form', $data);
     }
@@ -166,8 +182,27 @@ class UserManagementController extends StislaController
      */
     public function update(UserRequest $request, User $user)
     {
-        $data = $this->getStoreData($request);
+        // Validasi role untuk PNTJT dan Dukcapil TJT
+        if (auth()->user()->hasRole(['pntjt', 'dukcapiltjt'])) {
+            // Cek jika user yang diedit memiliki role protected
+            if ($user->hasRole(['superadmin', 'admin'])) {
+                return redirect()->route('user-management.users.index')
+                    ->with('errorMessage', 'Anda tidak memiliki akses untuk mengubah data pengguna ini.');
+            }
 
+            // Validasi role yang dipilih
+            $allowedRoles = ['user', 'pntjt', 'dukcapiltjt'];
+            $requestedRoles = (array) $request->role;
+
+            foreach ($requestedRoles as $role) {
+                if (!in_array($role, $allowedRoles)) {
+                    return redirect()->back()
+                        ->with('errorMessage', 'Anda hanya bisa memilih role user, pntjt, atau dukcapiltjt.');
+                }
+            }
+        }
+
+        $data = $this->getStoreData($request);
         $userNew = $this->userRepository->update($data, $user->id);
         $this->userRepository->syncRoles($userNew, $request->role);
         logUpdate('Pengguna', $user, $userNew);

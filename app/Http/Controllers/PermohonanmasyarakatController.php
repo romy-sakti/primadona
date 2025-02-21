@@ -124,13 +124,17 @@ class PermohonanmasyarakatController extends Controller
      */
     public function create()
     {
-        $jenisPermohonans = Jenispermohonan::all();
+        if(auth()->user()->hasRole('dukcapiltjt')) {
+            return redirect()->route('permohonanmasyarakats.index')
+                ->with('errorMessage', 'Anda tidak memiliki akses untuk menambah data baru.');
+        }
+
         return view('stisla.permohonanmasyarakats.form', [
-            'title'             => __('Permohonan Masyarakat'),
-            'fullTitle'         => __('Tambah Permohonan Masyarakat'),
-            'routeIndex'        => route('permohonanmasyarakats.index'),
-            'action'            => route('permohonanmasyarakats.store'),
-            'jenisPermohonans'  => $jenisPermohonans
+            'title' => 'Permohonan Masyarakat',
+            'fullTitle' => 'Tambah Permohonan Masyarakat',
+            'jenisPermohonans' => Jenispermohonan::all(),
+            'action' => route('permohonanmasyarakats.store'),
+            'routeIndex' => route('permohonanmasyarakats.index')
         ]);
     }
 
@@ -142,38 +146,29 @@ class PermohonanmasyarakatController extends Controller
      */
     public function store(PermohonanmasyarakatRequest $request)
     {
+        if(auth()->user()->hasRole('dukcapiltjt')) {
+            return redirect()->route('permohonanmasyarakats.index')
+                ->with('errorMessage', 'Anda tidak memiliki akses untuk menambah data baru.');
+        }
+
         $data = $request->only([
-			'nama_pemohon',
-			'jenis_permohonan_id',
-			'nomor_perkara',
-			'status_permohonan',
-			'keterangan',
-			'dokumen_penetapan',
-			'nomor_telepon',
-			'alamat_pemohon',
-			'tempat_lahir',
-			'tanggal_lahir',
+            'nama_pemohon',
+            'jenis_permohonan_id',
+            'nomor_perkara',
+            'status_permohonan',
+            'nomor_telepon',
+            'dokumen_penetapan',
+            'alamat_pemohon',
+            'tempat_lahir',
+            'tanggal_lahir',
         ]);
 
-        // gunakan jika ada file
-        // if ($request->hasFile('file')) {
-        //     $data['file'] = $this->fileService->methodName($request->file('file'));
-        // }
+        // Hanya tambahkan keterangan jika user adalah dukcapiltjt
+        if (auth()->user()->hasRole('dukcapiltjt')) {
+            $data['keterangan'] = $request->keterangan;
+        }
 
         $result = $this->permohonanmasyarakatRepository->create($data);
-
-        // use this if you want to create notification data
-        // $title = 'Notify Title';
-        // $content = 'lorem ipsum dolor sit amet';
-        // $userId = 2;
-        // $notificationType = 'transaksi masuk';
-        // $icon = 'bell'; // font awesome
-        // $bgColor = 'primary'; // primary, danger, success, warning
-        // $this->NotificationRepository->createNotif($title,  $content, $userId,  $notificationType, $icon, $bgColor);
-
-        // gunakan jika mau kirim email
-        // $this->emailService->methodName($result);
-
         logCreate("permohonan_masyarakat", $result);
 
         $successMessage = successMessageCreate("permohonan_masyarakat");
@@ -186,16 +181,16 @@ class PermohonanmasyarakatController extends Controller
      * @param Permohonanmasyarakat $permohonanmasyarakat
      * @return Response
      */
-    public function edit(Permohonanmasyarakat $permohonanmasyarakat)
+    public function edit($id)
     {
-        $jenisPermohonans = Jenispermohonan::all();
+        $d = $this->permohonanmasyarakatRepository->find($id);
         return view('stisla.permohonanmasyarakats.form', [
-            'd'                 => $permohonanmasyarakat,
-            'title'             => __('Permohonan Masyarakat'),
-            'fullTitle'         => __('Ubah Permohonan Masyarakat'),
-            'routeIndex'        => route('permohonanmasyarakats.index'),
-            'action'            => route('permohonanmasyarakats.update', [$permohonanmasyarakat->id]),
-            'jenisPermohonans'  => $jenisPermohonans
+            'title' => 'Permohonan Masyarakat',
+            'fullTitle' => 'Edit Permohonan Masyarakat',
+            'action' => route('permohonanmasyarakats.update', [$id]),
+            'jenisPermohonans' => Jenispermohonan::all(),
+            'd' => $d,
+            'routeIndex' => route('permohonanmasyarakats.index')
         ]);
     }
 
@@ -206,44 +201,29 @@ class PermohonanmasyarakatController extends Controller
      * @param Permohonanmasyarakat $permohonanmasyarakat
      * @return Response
      */
-    public function update(PermohonanmasyarakatRequest $request, Permohonanmasyarakat $permohonanmasyarakat)
+    public function update(PermohonanmasyarakatRequest $request, $id)
     {
-        $data = $request->only([
-			'nama_pemohon',
-			'jenis_permohonan_id',
-			'nomor_perkara',
-			'status_permohonan',
-			'keterangan',
-			'dokumen_penetapan',
-			'nomor_telepon',
-			'alamat_pemohon',
-			'tempat_lahir',
-			'tanggal_lahir',
-        ]);
+        $permohonan = $this->permohonanmasyarakatRepository->find($id);
 
-        // gunakan jika ada file
-        // if ($request->hasFile('file')) {
-        //     $data['file'] = $this->fileService->methodName($request->file('file'));
-        // }
+        if (auth()->user()->hasRole('dukcapiltjt')) {
+            // Dukcapil TJT hanya bisa update field keterangan
+            $data = $request->only(['keterangan']);
+        } else {
+            // User lain bisa update semua field kecuali keterangan
+            $data = $request->except(['keterangan']);
+        }
 
-        $newData = $this->permohonanmasyarakatRepository->update($data, $permohonanmasyarakat->id);
+        try {
+            $permohonanNew = $this->permohonanmasyarakatRepository->update($data, $id);
+            logUpdate('Permohonan Masyarakat', $permohonan, $permohonanNew);
 
-        // use this if you want to create notification data
-        // $title = 'Notify Title';
-        // $content = 'lorem ipsum dolor sit amet';
-        // $userId = 2;
-        // $notificationType = 'transaksi masuk';
-        // $icon = 'bell'; // font awesome
-        // $bgColor = 'primary'; // primary, danger, success, warning
-        // $this->NotificationRepository->createNotif($title,  $content, $userId,  $notificationType, $icon, $bgColor);
-
-        // gunakan jika mau kirim email
-        // $this->emailService->methodName($newData);
-
-        logUpdate("permohonan_masyarakat", $permohonanmasyarakat, $newData);
-
-        $successMessage = successMessageUpdate("permohonan_masyarakat");
-        return redirect()->route('permohonanmasyarakats.index')->with('successMessage', $successMessage);
+            $successMessage = successMessageUpdate('Permohonan Masyarakat');
+            return redirect()->back()->with('successMessage', $successMessage);
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('errorMessage', 'Gagal menyimpan data: ' . $e->getMessage())
+                ->withInput();
+        }
     }
 
     /**

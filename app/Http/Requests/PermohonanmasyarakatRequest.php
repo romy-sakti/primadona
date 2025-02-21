@@ -23,33 +23,25 @@ class PermohonanmasyarakatRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->isMethod('put')) {
-            return [
-				'nama_pemohon' => ["required"],
-				'jenis_permohonan_id' => ["required"],
-				'nomor_perkara' => ["required"],
-				'status_permohonan' => ["required"],
-				'keterangan' => ["required"],
-				'dokumen_penetapan' => ["required"],
-				'nomor_telepon' => ["required"],
-				'alamat_pemohon' => ["required"],
-				'tempat_lahir' => ["required"],
-				'tanggal_lahir' => ["required"],
+        $rules = [
+            'nama_pemohon' => 'required',
+            'jenis_permohonan_id' => 'required',
+            'nomor_perkara' => 'required',
+            'status_permohonan' => 'required',
+            'dokumen_penetapan' => 'required',
+            'nomor_telepon' => 'required',
+            'alamat_pemohon' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+        ];
 
+        // Jika user adalah dukcapiltjt, hanya validasi field keterangan
+        if (auth()->user()->hasRole('dukcapiltjt')) {
+            $rules = [
+                'keterangan' => 'required'
             ];
         }
-        return [
-			'nama_pemohon' => ["required"],
-			'jenis_permohonan_id' => ["required"],
-			'nomor_perkara' => ["required"],
-			'status_permohonan' => ["required"],
-			'keterangan' => ["required"],
-			'dokumen_penetapan' => ["required"],
-			'nomor_telepon' => ["required"],
-			'alamat_pemohon' => ["required"],
-			'tempat_lahir' => ["required"],
-			'tanggal_lahir' => ["required"],
 
-        ];
+        return $rules;
     }
 }
