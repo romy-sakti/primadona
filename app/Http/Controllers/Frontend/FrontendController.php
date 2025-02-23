@@ -80,4 +80,5 @@ class FrontendController extends Controller
 
         return redirect()->back()->with('success', 'Penetapan berhasil diupload');
     }
+
 }

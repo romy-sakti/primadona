@@ -30,6 +30,11 @@ Route::post('auth/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::get('auth/reset-password/{token}', [AuthController::class, 'resetPasswordForm'])->name('reset-password');
 Route::post('auth/reset-password/{token}', [AuthController::class, 'resetPassword']);
 
+// Rute untuk portal
+Route::get('auth/login-portal', [AuthController::class, 'loginPortal'])->name('login-portal');
+Route::post('auth/login-portal', [AuthController::class, 'loginPortalPost'])->name('login-portal-post');
+Route::post('auth/logout-portal', [AuthController::class, 'logoutPortal'])->name('logout-portal');
+
 # SOCIAL LOGIN AND REGISTER
 Route::get('auth/social-login/{provider}', [AuthController::class, 'socialLogin'])->name('social-login');
 Route::get('auth/social-register/{provider}', [AuthController::class, 'socialRegister'])->name('social-register');
@@ -52,5 +57,7 @@ Route::get('/info-sidarling/jadwal/{id}', [FrontendController::class, 'detailJad
 Route::get('/permohonan-masyarakat', [FrontendController::class, 'permohonanMasyarakat'])->name('permohonan-masyarakat');
 Route::get('/peraturan', [FrontendController::class, 'peraturan'])->name('peraturan');
 Route::get('/biaya', [FrontendController::class, 'biaya'])->name('biaya');
-Route::get('/upload-penetapan', [FrontendController::class, 'uploadPenetapan'])->name('upload-penetapan');
-Route::post('/upload-penetapan', [FrontendController::class, 'storePenetapan'])->name('upload-penetapan.store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/upload-penetapan', [FrontendController::class, 'uploadPenetapan'])->name('upload-penetapan');
+    Route::post('/upload-penetapan', [FrontendController::class, 'storePenetapan'])->name('upload-penetapan.store');
+});

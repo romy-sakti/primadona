@@ -55,7 +55,18 @@
                             </li>
 
                             <li class="heder-btn">
-                                <a href="javascript:void(0)">Masuk</a>
+                                @if (Auth::check())
+                                    <!-- Jika pengguna sudah masuk, tampilkan tombol Logout -->
+                                    <form id="logout-form" action="{{ route('logout-portal') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+                                    <a href="javascript:void(0)"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                @else
+                                    <!-- Jika pengguna belum masuk, tampilkan tautan ke halaman login -->
+                                    <a href="{{ route('login-portal') }}">Masuk</a>
+                                @endif
                             </li>
                         </ul>
                     </div>

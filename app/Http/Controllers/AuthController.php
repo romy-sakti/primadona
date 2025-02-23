@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\Request;
 
 class AuthController extends StislaController
 {
@@ -128,6 +129,49 @@ class AuthController extends StislaController
             }
         }
         return view('stisla.auth.login.index');
+    }
+
+    /**
+     * Menampilkan form login untuk portal
+     */
+    public function loginPortal()
+    {
+        return view('frontend.login');
+    }
+
+    /**
+     * Proses login untuk portal
+     */
+    public function loginPortalPost(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            // Cek jika user memiliki role 'user'
+            if (Auth::user()->hasRole('user')) {
+                // Redirect langsung ke halaman upload-penetapan
+                return redirect()->route('upload-penetapan')->with('success', 'Berhasil masuk ke dalam sistem');
+            }
+            
+            // Jika bukan user, logout dan kembalikan dengan pesan error
+            Auth::logout();
+            return redirect()->back()->with('error', 'Akun anda tidak memiliki akses ke portal.');
+        }
+
+        return redirect()->back()->with('error', 'Email atau password salah.');
+    }
+
+    /**
+     * Logout dari portal
+     */
+    public function logoutPortal()
+    {
+        Auth::logout();
+        Session::flush();
+        return redirect()->route('login-portal')->with('success', 'Berhasil keluar dari sistem');
     }
 
     /**
