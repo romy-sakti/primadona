@@ -9,29 +9,33 @@
         <div class="d-table-cell">
             <div class="container">
                 <div class="page-content">
-                    <h2>Login ke Portal PRIMADONA</h2>
+                    <h2>Login Portal PRIMADONA</h2>
+                    <ul>
+                        <li>PELAYANAN INFORMASI PERMOHONAN PENGADILAN BERBASIS DIGITAL <br> PENGADILAN NEGERI TANJUNG
+                            JABUNG
+                            TIMUR</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- End Page banner Area -->
 
-<!-- Login Form Area -->
-<div class="login-area ptb-100">
+<!-- Start Sign in Area -->
+<div class="sign-in-area ptb-100">
     <div class="container">
-        <div class="login-form">
-            @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-            @endif
+        <div class="section-title">
+            <h2>Masuk ke Portal PRIMADONA</h2>
+            <p>Silahkan masukkan email dan password Anda untuk mengakses portal PRIMADONA.</p>
+        </div>
 
+        <div class="sign-in-form">
             <form method="POST" action="{{ route('login-portal-post') }}">
                 @csrf
                 <div class="form-group">
-                    <label>Email</label>
                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                        value="{{ old('email') }}" placeholder="Masukkan email Anda" required>
+                        id="email" placeholder="Email" value="{{ old('email') }}" required>
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -40,9 +44,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Password</label>
                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                        placeholder="Masukkan password Anda" required>
+                        id="password" placeholder="Password" required>
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -50,95 +53,43 @@
                     @enderror
                 </div>
 
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="remember" name="remember" {{
-                                old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="remember">Ingat Saya</label>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-6 text-right">
-                        <a href="{{ route('forgot-password') }}" class="forgot-password">Lupa Password?</a>
-                    </div>
+                <div class="form-group form-check text-center">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="remember" {{
+                        old('remember') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="exampleCheck1">Ingat Saya</label>
                 </div>
 
-                <button type="submit" class="default-btn">
-                    Login
-                </button>
+                <div class="text-center">
+                    <button type="submit" class="btn default-btn-one">Sign In</button>
 
-                <div class="text-center mt-4">
-                    <p>Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a></p>
+                    {{-- <p class="account-decs">
+                        Not a member? <a href="sign-up.html">Sign Up</a>
+                    </p> --}}
                 </div>
             </form>
         </div>
     </div>
 </div>
+<!-- End Sign in  Area -->
+
+<script>
+    @if(session('success'))
+        Swal.fire({
+            title: 'Success!',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            confirmButtonText: 'Okay'
+        });
+    @endif
+
+    @if(session('error'))
+        Swal.fire({
+            title: 'Error!',
+            text: "{{ session('error') }}",
+            icon: 'error',
+            confirmButtonText: 'Okay'
+        });
+    @endif
+</script>
+
 @endsection
-
-@push('styles')
-<style>
-    .login-area {
-        background-color: #f8f9fa;
-        min-height: calc(100vh - 200px);
-        display: flex;
-        align-items: center;
-    }
-
-    .login-form {
-        max-width: 500px;
-        margin: 0 auto;
-        background: #fff;
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .login-form h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #333;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-group label {
-        font-weight: 600;
-        color: #555;
-    }
-
-    .default-btn {
-        width: 100%;
-        padding: 12px;
-        background: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        font-weight: 600;
-        margin-top: 20px;
-        transition: all 0.3s ease;
-    }
-
-    .default-btn:hover {
-        background: #0056b3;
-    }
-
-    .forgot-password {
-        color: #007bff;
-        text-decoration: none;
-    }
-
-    .forgot-password:hover {
-        text-decoration: underline;
-    }
-
-    .alert {
-        margin-bottom: 20px;
-        padding: 15px;
-        border-radius: 5px;
-    }
-</style>
-@endpush
