@@ -24,6 +24,7 @@ class Uploadpenetapan extends Model
     protected $fillable = [
 		'nomor_perkara',
 		'file_penetapan',
+        'user_id',
     ];
 
     /**
@@ -54,4 +55,10 @@ class Uploadpenetapan extends Model
      * @var array
      */
     protected $with = [];
+    // app/Models/Uploadpenetapan.php
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

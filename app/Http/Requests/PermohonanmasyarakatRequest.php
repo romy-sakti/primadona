@@ -28,7 +28,7 @@ class PermohonanmasyarakatRequest extends FormRequest
             'jenis_permohonan_id' => 'required',
             'nomor_perkara' => 'required',
             'status_permohonan' => 'required',
-            'dokumen_penetapan' => 'required',
+            'dokumen_penetapan' => 'nullable',
             'nomor_telepon' => 'required',
             'alamat_pemohon' => 'required',
             'tempat_lahir' => 'required',

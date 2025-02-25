@@ -59,12 +59,38 @@
                                 <div class="file-list">
                                     @foreach($item->dokumen as $dokumen)
                                     <div class="file-item">
-                                        <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
+                                        {{-- <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
                                             target="_blank" class="text-decoration-none">
                                             <span class="text-danger">- {{ pathinfo($dokumen, PATHINFO_FILENAME)
                                                 }}</span>
                                             <span class="file-size">[1.8 MB]</span>
+                                        </a> --}}
+                                        @php
+                                        $filePath = public_path('storage/narasisidangkeliling/dokumen/' . $dokumen);
+                                        $fileSize = file_exists($filePath) ? filesize($filePath) : 0;
+
+                                        $formatSize = function ($bytes) {
+                                        if ($bytes >= 1073741824) {
+                                        return number_format($bytes / 1073741824, 2) . ' GB';
+                                        } elseif ($bytes >= 1048576) {
+                                        return number_format($bytes / 1048576, 2) . ' MB';
+                                        } elseif ($bytes >= 1024) {
+                                        return number_format($bytes / 1024, 2) . ' KB';
+                                        } else {
+                                        return $bytes . ' bytes';
+                                        }
+                                        };
+                                        @endphp
+
+                                        <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
+                                            target="_blank" class="text-decoration-none">
+                                            <span class="text-danger">- {{ pathinfo($dokumen, PATHINFO_FILENAME)
+                                                }}</span>
+                                            <span class="file-size">[{{ $formatSize($fileSize) }}]</span>
                                         </a>
+
+
+
                                     </div>
                                     @endforeach
                                 </div>

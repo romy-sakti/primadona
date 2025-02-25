@@ -11,6 +11,7 @@ use App\Models\Biayapermohonan;
 use App\Models\Uploadpenetapan;
 use App\Models\Ketentuanpenetapan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -56,11 +57,19 @@ class FrontendController extends Controller
         return view('frontend.biaya.biaya', compact('biaya'));
     }
 
+    // public function uploadPenetapan()
+    // {
+    //     $ketentuan = Ketentuanpenetapan::all();
+    //     return view('frontend.upload-penetapan.index', compact('ketentuan'));
+    // }
     public function uploadPenetapan()
     {
         $ketentuan = Ketentuanpenetapan::all();
-        return view('frontend.upload-penetapan.index', compact('ketentuan'));
+        $penetapanFiles = Uploadpenetapan::where('user_id', auth()->id())->latest()->get();
+
+        return view('frontend.upload-penetapan.index', compact('ketentuan', 'penetapanFiles'));
     }
+
 
     public function storePenetapan(Request $request)
     {
@@ -76,6 +85,7 @@ class FrontendController extends Controller
         Uploadpenetapan::create([
             'nomor_perkara' => $request->nomor_perkara,
             'file_penetapan' => $fileName,
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->back()->with('success', 'Penetapan berhasil diupload');

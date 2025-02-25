@@ -176,7 +176,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Dokumen Penetapan') }} <span class="text-danger">*</span></label>
                                     @if(auth()->user()->hasRole('dukcapiltjt') && isset($d))
@@ -187,7 +187,7 @@
                                         value="{{ $d->dokumen_penetapan ?? '' }}" />
                                     @endif
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-12">
                                 <br>

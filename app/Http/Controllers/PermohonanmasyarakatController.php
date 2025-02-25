@@ -157,7 +157,6 @@ class PermohonanmasyarakatController extends Controller
             'nomor_perkara',
             'status_permohonan',
             'nomor_telepon',
-            'dokumen_penetapan',
             'alamat_pemohon',
             'tempat_lahir',
             'tanggal_lahir',
@@ -218,7 +217,7 @@ class PermohonanmasyarakatController extends Controller
             logUpdate('Permohonan Masyarakat', $permohonan, $permohonanNew);
 
             $successMessage = successMessageUpdate('Permohonan Masyarakat');
-            return redirect()->back()->with('successMessage', $successMessage);
+            return redirect()->route('permohonanmasyarakats.index')->with('successMessage', $successMessage);
         } catch (\Exception $e) {
             return redirect()->back()
                 ->with('errorMessage', 'Gagal menyimpan data: ' . $e->getMessage())
