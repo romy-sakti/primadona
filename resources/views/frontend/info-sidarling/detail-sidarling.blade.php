@@ -34,14 +34,17 @@
                         <div class="single-narasi mb-5">
                             <h4 class="mb-3">Tahun {{ $item->tahun }}</h4>
 
-                            @if(!empty($item->foto) && is_array($item->foto))
+                            @if($item->foto && count($item->foto) > 0)
                             <div class="img-gallery mb-4">
                                 <div class="row g-4">
                                     @foreach($item->foto as $foto)
                                     <div class="col-lg-4 col-md-6">
                                         <div class="gallery-item">
-                                            <img src="{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}"
-                                                alt="Foto Sidang Keliling" class="img-fluid rounded">
+                                            <div class="image-wrapper" style="position: relative; padding-top: 75%; overflow: hidden; border-radius: 8px;">
+                                                <img src="{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}"
+                                                    alt="Foto Sidang Keliling" 
+                                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; background-color: #f8f9fa;">
+                                            </div>
                                         </div>
                                     </div>
                                     @endforeach
@@ -53,44 +56,39 @@
                                 {!! $item->narasi !!}
                             </div>
 
-                            @if(!empty($item->dokumen) && is_array($item->dokumen))
+                            @if($item->dokumen && count($item->dokumen) > 0)
                             <h5 class="text-dark fw-bold mb-3">FILE PENDUKUNG</h5>
                             <div class="article-footer">
                                 <div class="file-list">
-                                    @foreach($item->dokumen as $dokumen)
+                                    @foreach($item->dokumen as $index => $dokumen)
                                     <div class="file-item">
-                                        {{-- <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
-                                            target="_blank" class="text-decoration-none">
-                                            <span class="text-danger">- {{ pathinfo($dokumen, PATHINFO_FILENAME)
-                                                }}</span>
-                                            <span class="file-size">[1.8 MB]</span>
-                                        </a> --}}
                                         @php
                                         $filePath = public_path('storage/narasisidangkeliling/dokumen/' . $dokumen);
                                         $fileSize = file_exists($filePath) ? filesize($filePath) : 0;
 
                                         $formatSize = function ($bytes) {
-                                        if ($bytes >= 1073741824) {
-                                        return number_format($bytes / 1073741824, 2) . ' GB';
-                                        } elseif ($bytes >= 1048576) {
-                                        return number_format($bytes / 1048576, 2) . ' MB';
-                                        } elseif ($bytes >= 1024) {
-                                        return number_format($bytes / 1024, 2) . ' KB';
-                                        } else {
-                                        return $bytes . ' bytes';
-                                        }
+                                            if ($bytes >= 1073741824) {
+                                                return number_format($bytes / 1073741824, 2) . ' GB';
+                                            } elseif ($bytes >= 1048576) {
+                                                return number_format($bytes / 1048576, 2) . ' MB';
+                                            } elseif ($bytes >= 1024) {
+                                                return number_format($bytes / 1024, 2) . ' KB';
+                                            } else {
+                                                return $bytes . ' bytes';
+                                            }
                                         };
+
+                                        // Menentukan nama file yang akan ditampilkan
+                                        $displayName = count($item->dokumen) > 1 ? 
+                                            'File Pendukung ' . ($index + 1) : 
+                                            'File Pendukung';
                                         @endphp
 
                                         <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
                                             target="_blank" class="text-decoration-none">
-                                            <span class="text-danger">- {{ pathinfo($dokumen, PATHINFO_FILENAME)
-                                                }}</span>
+                                            <span class="text-danger">- {{ $displayName }}</span>
                                             <span class="file-size">[{{ $formatSize($fileSize) }}]</span>
                                         </a>
-
-
-
                                     </div>
                                     @endforeach
                                 </div>

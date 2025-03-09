@@ -104,7 +104,7 @@ class KetentuanpenetapanController extends Controller
             'canDelete'        => $user->can('ketentuanpenetapan Hapus'),
             'canImportExcel'   => $user->can('Order Impor Excel') && $this->importable,
             'canExport'        => $user->can('Order Ekspor') && $this->exportable,
-            'title'            => __('Ketentuan Penetapan'),
+            'title'            => __('Persyaratan Penetapan'),
             'routeCreate'      => route('ketentuanpenetapans.create'),
             'routePdf'         => route('ketentuanpenetapans.pdf'),
             'routePrint'       => route('ketentuanpenetapans.print'),
@@ -124,8 +124,8 @@ class KetentuanpenetapanController extends Controller
     public function create()
     {
         return view('stisla.ketentuanpenetapans.form', [
-            'title'         => __('Ketentuan Penetapan'),
-            'fullTitle'     => __('Tambah Ketentuan Penetapan'),
+            'title'         => __('Persyaratan Penetapan'),
+            'fullTitle'     => __('Tambah Persyaratan Penetapan'),
             'routeIndex'    => route('ketentuanpenetapans.index'),
             'action'        => route('ketentuanpenetapans.store')
         ]);
@@ -178,8 +178,8 @@ class KetentuanpenetapanController extends Controller
     {
         return view('stisla.ketentuanpenetapans.form', [
             'd'             => $ketentuanpenetapan,
-            'title'         => __('Ketentuan Penetapan'),
-            'fullTitle'     => __('Ubah Ketentuan Penetapan'),
+            'title'         => __('Persyaratan Penetapan'),
+            'fullTitle'     => __('Ubah Persyaratan Penetapan'),
             'routeIndex'    => route('ketentuanpenetapans.index'),
             'action'        => route('ketentuanpenetapans.update', [$ketentuanpenetapan->id])
         ]);

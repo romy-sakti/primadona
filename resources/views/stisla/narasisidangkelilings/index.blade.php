@@ -127,26 +127,32 @@
                                     <td>{{ $item->tahun }}</td>
                                     <td>{{ $item->narasi }}</td>
                                     <td class="text-center">
-                                        @if(is_array($item->foto) && count($item->foto) > 0)
-                                        @foreach($item->foto as $foto)
-                                        <img src="{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}" alt="Foto"
-                                            class="img-thumbnail" style="height: 80px; cursor: pointer"
-                                            onclick="showImage('{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}')">
-                                        @endforeach
+                                        @php
+                                            $fotos = json_decode($item->foto ?? '[]');
+                                        @endphp
+                                        @if($fotos && count($fotos) > 0)
+                                            @foreach($fotos as $foto)
+                                            <img src="{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}" alt="Foto"
+                                                class="img-thumbnail" style="height: 80px; cursor: pointer"
+                                                onclick="showImage('{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}')">
+                                            @endforeach
                                         @else
-                                        <span class="badge badge-warning">Tidak ada foto</span>
+                                            <span class="badge badge-warning">Tidak ada foto</span>
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        @if(is_array($item->dokumen) && count($item->dokumen) > 0)
-                                        @foreach($item->dokumen as $dokumen)
-                                        <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
-                                            target="_blank" class="btn btn-info btn-sm mb-1">
-                                            <i class="fas fa-file"></i> Lihat Dokumen
-                                        </a><br>
-                                        @endforeach
+                                        @php
+                                            $dokumens = json_decode($item->dokumen ?? '[]');
+                                        @endphp
+                                        @if($dokumens && count($dokumens) > 0)
+                                            @foreach($dokumens as $dokumen)
+                                            <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
+                                                target="_blank" class="btn btn-info btn-sm mb-1">
+                                                <i class="fas fa-file"></i> Lihat Dokumen
+                                            </a><br>
+                                            @endforeach
                                         @else
-                                        <span class="badge badge-warning">Tidak ada dokumen</span>
+                                            <span class="badge badge-warning">Tidak ada dokumen</span>
                                         @endif
                                     </td>
                                     <td>
@@ -222,11 +228,12 @@
 function showDetail(id, tahun, narasi, fotos, dokumens) {
     // Parse string JSON menjadi array
     try {
-        fotos = fotos ? JSON.parse(fotos) : null;
-        dokumens = dokumens ? JSON.parse(dokumens) : null;
+        fotos = JSON.parse(fotos || '[]');
+        dokumens = JSON.parse(dokumens || '[]');
     } catch (e) {
-        fotos = null;
-        dokumens = null;
+        console.error('Error parsing JSON:', e);
+        fotos = [];
+        dokumens = [];
     }
 
     // Set data ke modal
@@ -237,15 +244,7 @@ function showDetail(id, tahun, narasi, fotos, dokumens) {
     let fotoContainer = $('#detail-foto');
     fotoContainer.empty();
 
-    if (fotos === null) {
-        fotoContainer.append(`
-            <div class="col-12">
-                <div class="alert alert-light">
-                    <i class="fas fa-info-circle"></i> Tidak ada foto yang tersedia
-                </div>
-            </div>
-        `);
-    } else if (Array.isArray(fotos) && fotos.length > 0) {
+    if (Array.isArray(fotos) && fotos.length > 0) {
         fotos.forEach(foto => {
             fotoContainer.append(`
                 <div class="col-md-4 mb-3">

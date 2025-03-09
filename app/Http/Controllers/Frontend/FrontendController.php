@@ -18,7 +18,13 @@ class FrontendController extends Controller
     public function sidarling()
     {
         $narasi = Narasisidangkeliling::orderBy('tahun', 'desc')
-            ->paginate(2, ['*'], 'narasi_page');
+            ->paginate(2, ['*'], 'narasi_page')
+            ->through(function ($item) {
+                // Decode foto dan dokumen
+                $item->foto = json_decode($item->foto ?? '[]');
+                $item->dokumen = json_decode($item->dokumen ?? '[]');
+                return $item;
+            });
 
         $jadwal = Jadwalsidangkeliling::orderBy('tanggal_sidang', 'desc')
             ->take(4)

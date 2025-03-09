@@ -54,22 +54,27 @@
                                     <div class="mb-3">
                                         <label>Foto yang sudah ada:</label>
                                         <div class="row">
-                                            @foreach($d->foto as $index => $foto)
-                                            <div class="col-md-3 mb-3">
-                                                <div class="card">
-                                                    <img src="{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}"
-                                                        class="card-img-top" alt="Foto">
-                                                    <div class="card-body">
-                                                        <button type="button"
-                                                            class="btn btn-danger btn-sm btn-block hapus-foto-lama"
-                                                            data-foto="{{ $foto }}">
-                                                            <i class="fas fa-trash"></i> Hapus
-                                                        </button>
-                                                        <input type="hidden" name="foto_lama[]" value="{{ $foto }}">
+                                            @php
+                                                $fotos = json_decode($d->foto);
+                                            @endphp
+                                            @if($fotos && count($fotos) > 0)
+                                                @foreach($fotos as $index => $foto)
+                                                <div class="col-md-3 mb-3">
+                                                    <div class="card">
+                                                        <img src="{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}"
+                                                            class="card-img-top" alt="Foto">
+                                                        <div class="card-body">
+                                                            <button type="button"
+                                                                class="btn btn-danger btn-sm btn-block hapus-foto-lama"
+                                                                data-foto="{{ $foto }}">
+                                                                <i class="fas fa-trash"></i> Hapus
+                                                            </button>
+                                                            <input type="hidden" name="foto_lama[]" value="{{ $foto }}">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            @endforeach
+                                                @endforeach
+                                            @endif
                                         </div>
                                     </div>
                                     @endif
@@ -99,26 +104,31 @@
                                     <div class="mb-3">
                                         <label>Dokumen yang sudah ada:</label>
                                         <div class="row">
-                                            @foreach($d->dokumen as $index => $dokumen)
-                                            <div class="col-md-4 mb-3">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <p class="card-text">{{ $dokumen }}</p>
-                                                        <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
-                                                            class="btn btn-info btn-sm" target="_blank">
-                                                            <i class="fas fa-eye"></i> Lihat
-                                                        </a>
-                                                        <button type="button"
-                                                            class="btn btn-danger btn-sm hapus-dokumen-lama"
-                                                            data-dokumen="{{ $dokumen }}">
-                                                            <i class="fas fa-trash"></i> Hapus
-                                                        </button>
-                                                        <input type="hidden" name="dokumen_lama[]"
-                                                            value="{{ $dokumen }}">
+                                            @php
+                                                $dokumens = json_decode($d->dokumen);
+                                            @endphp
+                                            @if($dokumens && count($dokumens) > 0)
+                                                @foreach($dokumens as $index => $dokumen)
+                                                <div class="col-md-4 mb-3">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <p class="card-text">{{ $dokumen }}</p>
+                                                            <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
+                                                                class="btn btn-info btn-sm" target="_blank">
+                                                                <i class="fas fa-eye"></i> Lihat
+                                                            </a>
+                                                            <button type="button"
+                                                                class="btn btn-danger btn-sm hapus-dokumen-lama"
+                                                                data-dokumen="{{ $dokumen }}">
+                                                                <i class="fas fa-trash"></i> Hapus
+                                                            </button>
+                                                            <input type="hidden" name="dokumen_lama[]"
+                                                                value="{{ $dokumen }}">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            @endforeach
+                                                @endforeach
+                                            @endif
                                         </div>
                                     </div>
                                     @endif
