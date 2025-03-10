@@ -21,9 +21,9 @@ class FrontendController extends Controller
             ->paginate(2, ['*'], 'narasi_page')
             ->through(function ($item) {
                 // Decode foto dan dokumen
-                $item->foto = json_decode($item->foto ?? '[]');
-                $item->dokumen = json_decode($item->dokumen ?? '[]');
-                return $item;
+                $item->foto = is_string($item->foto) ? json_decode($item->foto, true) : [];
+            $item->dokumen = is_string($item->dokumen) ? json_decode($item->dokumen, true) : [];
+            return $item;
             });
 
         $jadwal = Jadwalsidangkeliling::orderBy('tanggal_sidang', 'desc')
