@@ -128,31 +128,33 @@
                                     <td>{{ $item->narasi }}</td>
                                     <td class="text-center">
                                         @php
-                                            $fotos = json_decode($item->foto ?? '[]');
+                                        $fotos = is_string($item->foto) ? json_decode($item->foto ?? '[]') :
+                                        $item->foto;
                                         @endphp
                                         @if($fotos && count($fotos) > 0)
-                                            @foreach($fotos as $foto)
-                                            <img src="{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}" alt="Foto"
-                                                class="img-thumbnail" style="height: 80px; cursor: pointer"
-                                                onclick="showImage('{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}')">
-                                            @endforeach
+                                        @foreach($fotos as $foto)
+                                        <img src="{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}" alt="Foto"
+                                            class="img-thumbnail" style="height: 80px; cursor: pointer"
+                                            onclick="showImage('{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}')">
+                                        @endforeach
                                         @else
-                                            <span class="badge badge-warning">Tidak ada foto</span>
+                                        <span class="badge badge-warning">Tidak ada foto</span>
                                         @endif
                                     </td>
                                     <td class="text-center">
                                         @php
-                                            $dokumens = json_decode($item->dokumen ?? '[]');
+                                        $dokumens = is_string($item->dokumen) ? json_decode($item->dokumen ?? '[]') :
+                                        $item->dokumen;
                                         @endphp
                                         @if($dokumens && count($dokumens) > 0)
-                                            @foreach($dokumens as $dokumen)
-                                            <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
-                                                target="_blank" class="btn btn-info btn-sm mb-1">
-                                                <i class="fas fa-file"></i> Lihat Dokumen
-                                            </a><br>
-                                            @endforeach
+                                        @foreach($dokumens as $dokumen)
+                                        <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
+                                            target="_blank" class="btn btn-info btn-sm mb-1">
+                                            <i class="fas fa-file"></i> Lihat Dokumen
+                                        </a><br>
+                                        @endforeach
                                         @else
-                                            <span class="badge badge-warning">Tidak ada dokumen</span>
+                                        <span class="badge badge-warning">Tidak ada dokumen</span>
                                         @endif
                                     </td>
                                     <td>
@@ -226,10 +228,10 @@
 }
 
 function showDetail(id, tahun, narasi, fotos, dokumens) {
-    // Parse string JSON menjadi array
+    // Parse string JSON menjadi array jika belum berbentuk array
     try {
-        fotos = JSON.parse(fotos || '[]');
-        dokumens = JSON.parse(dokumens || '[]');
+        fotos = typeof fotos === 'string' ? JSON.parse(fotos || '[]') : fotos;
+        dokumens = typeof dokumens === 'string' ? JSON.parse(dokumens || '[]') : dokumens;
     } catch (e) {
         console.error('Error parsing JSON:', e);
         fotos = [];

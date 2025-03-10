@@ -37,12 +37,16 @@
                             @if($item->foto && count($item->foto) > 0)
                             <div class="img-gallery mb-4">
                                 <div class="row g-4">
-                                    @foreach($item->foto as $foto)
+                                    @php
+                                    $fotos = is_string($item->foto) ? json_decode($item->foto) : $item->foto;
+                                    @endphp
+                                    @foreach($fotos as $foto)
                                     <div class="col-lg-4 col-md-6">
                                         <div class="gallery-item">
-                                            <div class="image-wrapper" style="position: relative; padding-top: 75%; overflow: hidden; border-radius: 8px;">
+                                            <div class="image-wrapper"
+                                                style="position: relative; padding-top: 75%; overflow: hidden; border-radius: 8px;">
                                                 <img src="{{ asset('storage/narasisidangkeliling/foto/' . $foto) }}"
-                                                    alt="Foto Sidang Keliling" 
+                                                    alt="Foto Sidang Keliling"
                                                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; background-color: #f8f9fa;">
                                             </div>
                                         </div>
@@ -60,35 +64,47 @@
                             <h5 class="text-dark fw-bold mb-3">FILE PENDUKUNG</h5>
                             <div class="article-footer">
                                 <div class="file-list">
-                                    @foreach($item->dokumen as $index => $dokumen)
+                                    @php
+                                    $dokumens = is_string($item->dokumen) ? json_decode($item->dokumen) :
+                                    $item->dokumen;
+                                    @endphp
+                                    @foreach($dokumens as $index => $dokumen)
                                     <div class="file-item">
                                         @php
                                         $filePath = public_path('storage/narasisidangkeliling/dokumen/' . $dokumen);
-                                        $fileSize = file_exists($filePath) ? filesize($filePath) : 0;
+                                        $fileExists = file_exists($filePath);
+                                        $fileSize = $fileExists ? filesize($filePath) : 0;
 
                                         $formatSize = function ($bytes) {
-                                            if ($bytes >= 1073741824) {
-                                                return number_format($bytes / 1073741824, 2) . ' GB';
-                                            } elseif ($bytes >= 1048576) {
-                                                return number_format($bytes / 1048576, 2) . ' MB';
-                                            } elseif ($bytes >= 1024) {
-                                                return number_format($bytes / 1024, 2) . ' KB';
-                                            } else {
-                                                return $bytes . ' bytes';
-                                            }
+                                        if ($bytes >= 1073741824) {
+                                        return number_format($bytes / 1073741824, 2) . ' GB';
+                                        } elseif ($bytes >= 1048576) {
+                                        return number_format($bytes / 1048576, 2) . ' MB';
+                                        } elseif ($bytes >= 1024) {
+                                        return number_format($bytes / 1024, 2) . ' KB';
+                                        } else {
+                                        return $bytes . ' bytes';
+                                        }
                                         };
 
                                         // Menentukan nama file yang akan ditampilkan
-                                        $displayName = count($item->dokumen) > 1 ? 
-                                            'File Pendukung ' . ($index + 1) : 
-                                            'File Pendukung';
+                                        $displayName = count($dokumens) > 1 ?
+                                        'File Pendukung ' . ($index + 1) :
+                                        'File Pendukung';
                                         @endphp
 
+                                        @if($fileExists)
                                         <a href="{{ asset('storage/narasisidangkeliling/dokumen/' . $dokumen) }}"
                                             target="_blank" class="text-decoration-none">
                                             <span class="text-danger">- {{ $displayName }}</span>
                                             <span class="file-size">[{{ $formatSize($fileSize) }}]</span>
                                         </a>
+                                        @else
+                                        <span class="text-muted">
+                                            <span class="text-danger">- {{ $displayName }}</span>
+                                            <span class="file-size">[File tidak tersedia]</span>
+                                        </span>
+                                        @endif
                                     </div>
                                     @endforeach
                                 </div>
@@ -110,7 +126,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h3 class="section-title theme-heading">Jadwal Sidang Keliling</h3>
                             <a href="{{ route('all-jadwal-sidarling') }}" class="btn theme-button btn-sm">
-                                <span class="theme-button-text">Lihat Semua</span> 
+                                <span class="theme-button-text">Lihat Semua</span>
                                 <i class="las la-arrow-right ms-1"></i>
                             </a>
                         </div>
@@ -130,7 +146,8 @@
                                                     {{ \Carbon\Carbon::parse($item->tanggal_sidang)->format('d M Y') }}
                                                 </h6>
                                                 <small class="theme-secondary-text">
-                                                    {{ $item->jam ? \Carbon\Carbon::parse($item->jam)->format('H:i') : '00:00' }} WIB
+                                                    {{ $item->jam ? \Carbon\Carbon::parse($item->jam)->format('H:i') :
+                                                    '00:00' }} WIB
                                                 </small>
                                             </div>
                                         </div>
@@ -159,7 +176,8 @@
 
                                         <!-- Tombol Detail -->
                                         <div class="mt-4 text-end">
-                                            <a href="{{ route('jadwal-sidarling.detail', $item->id) }}" class="btn theme-button btn-sm">
+                                            <a href="{{ route('jadwal-sidarling.detail', $item->id) }}"
+                                                class="btn theme-button btn-sm">
                                                 <span class="theme-button-text">Lihat Detail</span>
                                                 <i class="las la-arrow-right ms-1"></i>
                                             </a>
@@ -347,9 +365,11 @@
     .card {
         transition: transform 0.2s ease-in-out;
     }
+
     .card:hover {
         transform: translateY(-5px);
     }
+
     .icon-box {
         display: flex;
         align-items: center;
@@ -362,41 +382,53 @@
     .theme-light .theme-heading {
         color: #2d3436;
     }
+
     .theme-light .theme-card {
         background: #ffffff;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
+
     .theme-light .theme-card-body {
         background: #ffffff;
     }
+
     .theme-light .theme-text {
         color: #2d3436;
     }
+
     .theme-light .theme-secondary-text {
         color: #636e72;
     }
+
     .theme-light .theme-primary-box {
         background: #c8242f;
     }
+
     .theme-light .theme-primary-icon {
         color: #ffffff;
     }
+
     .theme-light .theme-secondary-box {
         background: #f5f6fa;
     }
+
     .theme-light .theme-accent-icon {
         color: #c8242f;
     }
+
     .theme-light .theme-border-accent {
         border-left: 4px solid #c8242f;
     }
+
     .theme-light .theme-button {
         background: #c8242f;
         border: none;
     }
+
     .theme-light .theme-button-text {
         color: #ffffff;
     }
+
     .theme-light .theme-button:hover {
         background: #a61d26;
     }
@@ -405,41 +437,53 @@
     .theme-dark .theme-heading {
         color: #ffffff;
     }
+
     .theme-dark .theme-card {
         background: #2d3436;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
+
     .theme-dark .theme-card-body {
         background: #2d3436;
     }
+
     .theme-dark .theme-text {
         color: #dfe6e9;
     }
+
     .theme-dark .theme-secondary-text {
         color: #b2bec3;
     }
+
     .theme-dark .theme-primary-box {
         background: #c8242f;
     }
+
     .theme-dark .theme-primary-icon {
         color: #ffffff;
     }
+
     .theme-dark .theme-secondary-box {
         background: #404b4d;
     }
+
     .theme-dark .theme-accent-icon {
         color: #ff7675;
     }
+
     .theme-dark .theme-border-accent {
         border-left: 4px solid #ff7675;
     }
+
     .theme-dark .theme-button {
         background: #c8242f;
         border: none;
     }
+
     .theme-dark .theme-button-text {
         color: #ffffff;
     }
+
     .theme-dark .theme-button:hover {
         background: #a61d26;
     }
