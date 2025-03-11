@@ -13,6 +13,7 @@ use App\Services\EmailService;
 use App\Services\FileService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -277,21 +278,33 @@ class NarasisidangkelilingController extends Controller
      */
     public function destroy(Narasisidangkeliling $narasisidangkeliling)
     {
-        // delete file from storage if exists
-        // $this->fileService->methodName($narasisidangkeliling);
+        // Hapus file foto dari storage jika ada
+        if ($narasisidangkeliling->foto) {
+            $fotos = json_decode($narasisidangkeliling->foto, true);
+            if (is_array($fotos)) {
+                foreach ($fotos as $foto) {
+                    $fotoPath = 'public/narasisidangkeliling/foto/' . $foto;
+                    if (Storage::exists($fotoPath)) {
+                        Storage::delete($fotoPath);
+                    }
+                }
+            }
+        }
 
-        // use this if you want to create notification data
-        // $title = 'Notify Title';
-        // $content = 'lorem ipsum dolor sit amet';
-        // $userId = 2;
-        // $notificationType = 'transaksi masuk';
-        // $icon = 'bell'; // font awesome
-        // $bgColor = 'primary'; // primary, danger, success, warning
-        // $this->NotificationRepository->createNotif($title,  $content, $userId,  $notificationType, $icon, $bgColor);
+        // Hapus file dokumen dari storage jika ada
+        if ($narasisidangkeliling->dokumen) {
+            $dokumens = json_decode($narasisidangkeliling->dokumen, true);
+            if (is_array($dokumens)) {
+                foreach ($dokumens as $dokumen) {
+                    $dokumenPath = 'public/narasisidangkeliling/dokumen/' . $dokumen;
+                    if (Storage::exists($dokumenPath)) {
+                        Storage::delete($dokumenPath);
+                    }
+                }
+            }
+        }
 
-        // gunakan jika mau kirim email
-        // $this->emailService->methodName($narasisidangkeliling);
-
+        // Hapus data dari database
         $this->narasisidangkelilingRepository->delete($narasisidangkeliling->id);
         logDelete("narasi_sidang_keliling", $narasisidangkeliling);
 
