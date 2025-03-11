@@ -88,11 +88,56 @@ class FrontendController extends Controller
         $fileName = time() . '_' . $file->getClientOriginalName();
         $file->move(public_path('uploads/penetapan'), $fileName);
 
-        Uploadpenetapan::create([
+        // Simpan data penetapan
+        $penetapan = Uploadpenetapan::create([
             'nomor_perkara' => $request->nomor_perkara,
             'file_penetapan' => $fileName,
             'user_id' => Auth::id(),
         ]);
+
+        try {
+            // Inisialisasi repository yang diperlukan
+            $userRepository = new \App\Repositories\UserRepository();
+            $notificationRepository = new \App\Repositories\NotificationRepository();
+
+            // Dapatkan semua user dengan role pntjt dan dukcapiltjt
+            $users = $userRepository->getUsersByRoles(['pntjt', 'dukcapiltjt']);
+            
+            // Debug: Cek jumlah user yang ditemukan
+            \Log::info('Users found: ' . $users->count());
+
+            // Kirim notifikasi ke setiap user
+            foreach ($users as $user) {
+                try {
+                    $title = 'Upload Penetapan Baru';
+                    $content = "Penetapan baru telah diupload dengan nomor perkara: {$request->nomor_perkara}";
+                    $notificationType = 'upload_penetapan';
+                    $icon = 'file-upload';
+                    $bgColor = 'primary';
+                    
+                    $notification = $notificationRepository->createNotif(
+                        $title, 
+                        $content, 
+                        $user->id, 
+                        $notificationType, 
+                        $icon, 
+                        $bgColor
+                    );
+                    
+                    // Debug: Log notifikasi yang dibuat
+                    \Log::info('Notification created:', [
+                        'user_id' => $user->id,
+                        'notification' => $notification
+                    ]);
+                } catch (\Exception $e) {
+                    // Debug: Log error jika terjadi
+                    \Log::error('Error creating notification: ' . $e->getMessage());
+                }
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error in notification process: ' . $e->getMessage());
+            // Tetap lanjutkan proses meski ada error di notifikasi
+        }
 
         return redirect()->back()->with('success', 'Penetapan berhasil diupload');
     }

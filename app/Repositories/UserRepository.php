@@ -442,4 +442,17 @@ class UserRepository extends Repository
         $data['email_verified_at'] = now();
         return $this->model->create($data);
     }
+
+    /**
+     * Get users by specific roles
+     *
+     * @param array $roles
+     * @return Collection
+     */
+    public function getUsersByRoles(array $roles)
+    {
+        return $this->model->whereHas('roles', function($query) use ($roles) {
+            $query->whereIn('name', $roles);
+        })->get();
+    }
 }
