@@ -112,7 +112,7 @@
                             data-export="true" data-title="{{ $title }}" @endif>
                             <thead>
                                 <tr>
-                                    <th class="text-center">#</th>
+                                    <th class="text-center">No</th>
                                     <th class="text-center">{{ __('Nomor Perkara') }}</th>
                                     <th class="text-center">{{ __('File Penetapan') }}</th>
                                     <th class="text-center">{{ __('Diunggah Oleh') }}</th>
@@ -135,7 +135,7 @@
                                         {{ $item->user ? $item->user->name : '-' }}
                                         <!-- Menampilkan nama pengguna -->
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         @if ($canUpdate)
                                         @include('stisla.includes.forms.buttons.btn-edit', ['link' =>
                                         route('uploadpenetapans.edit', [$item->id])])
@@ -144,7 +144,7 @@
                                         @include('stisla.includes.forms.buttons.btn-delete', ['link' =>
                                         route('uploadpenetapans.destroy', [$item->id])])
                                         @endif
-                                    </td>
+                                    </td> --}}
                                 </tr>
                                 @endforeach
                             </tbody>
