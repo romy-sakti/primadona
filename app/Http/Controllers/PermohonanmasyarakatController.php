@@ -105,7 +105,7 @@ class PermohonanmasyarakatController extends Controller
             'canDelete'        => $user->can('permohonan_masyarakat Hapus'),
             'canImportExcel'   => $user->can('Order Impor Excel') && $this->importable,
             'canExport'        => $user->can('Order Ekspor') && $this->exportable,
-            'title'            => __('Permohonan Masyarakat'),
+            'title'            => __('Database Permohonan Masyarakat'),
             'routeCreate'      => route('permohonanmasyarakats.create'),
             'routePdf'         => route('permohonanmasyarakats.pdf'),
             'routePrint'       => route('permohonanmasyarakats.print'),
@@ -130,8 +130,8 @@ class PermohonanmasyarakatController extends Controller
         }
 
         return view('stisla.permohonanmasyarakats.form', [
-            'title' => 'Permohonan Masyarakat',
-            'fullTitle' => 'Tambah Permohonan Masyarakat',
+            'title' => 'Database Permohonan Masyarakat',
+            'fullTitle' => 'Tambah Database Permohonan Masyarakat',
             'jenisPermohonans' => Jenispermohonan::all(),
             'action' => route('permohonanmasyarakats.store'),
             'routeIndex' => route('permohonanmasyarakats.index')
@@ -184,8 +184,8 @@ class PermohonanmasyarakatController extends Controller
     {
         $d = $this->permohonanmasyarakatRepository->find($id);
         return view('stisla.permohonanmasyarakats.form', [
-            'title' => 'Permohonan Masyarakat',
-            'fullTitle' => 'Edit Permohonan Masyarakat',
+            'title' => 'Database Permohonan Masyarakat',
+            'fullTitle' => 'Edit Database Permohonan Masyarakat',
             'action' => route('permohonanmasyarakats.update', [$id]),
             'jenisPermohonans' => Jenispermohonan::all(),
             'd' => $d,
@@ -214,9 +214,9 @@ class PermohonanmasyarakatController extends Controller
 
         try {
             $permohonanNew = $this->permohonanmasyarakatRepository->update($data, $id);
-            logUpdate('Permohonan Masyarakat', $permohonan, $permohonanNew);
+            logUpdate('Database Permohonan Masyarakat', $permohonan, $permohonanNew);
 
-            $successMessage = successMessageUpdate('Permohonan Masyarakat');
+            $successMessage = successMessageUpdate('Database Permohonan Masyarakat');
             return redirect()->route('permohonanmasyarakats.index')->with('successMessage', $successMessage);
         } catch (\Exception $e) {
             return redirect()->back()
@@ -249,9 +249,9 @@ class PermohonanmasyarakatController extends Controller
         // $this->emailService->methodName($permohonanmasyarakat);
 
         $this->permohonanmasyarakatRepository->delete($permohonanmasyarakat->id);
-        logDelete("permohonan_masyarakat", $permohonanmasyarakat);
+        logDelete("Database Permohonan Masyarakat", $permohonanmasyarakat);
 
-        $successMessage = successMessageDelete("permohonan_masyarakat");
+        $successMessage = successMessageDelete("Database Permohonan Masyarakat");
         return redirect()->back()->with('successMessage', $successMessage);
     }
 
@@ -279,7 +279,7 @@ class PermohonanmasyarakatController extends Controller
     public function importExcel(\App\Http\Requests\ImportExcelRequest $request)
     {
         Excel::import(new PermohonanmasyarakatImport, $request->file('import_file'));
-        $successMessage = successMessageImportExcel("permohonan_masyarakat");
+        $successMessage = successMessageImportExcel("Database Permohonan Masyarakat");
         return redirect()->back()->with('successMessage', $successMessage);
     }
 
@@ -291,7 +291,7 @@ class PermohonanmasyarakatController extends Controller
     public function json()
     {
         $data = $this->permohonanmasyarakatRepository->getLatest();
-        return $this->fileService->downloadJson($data, 'permohonanmasyarakats.json');
+        return $this->fileService->downloadJson($data, 'Database Permohonan Masyarakat.json');
     }
 
     /**
