@@ -21,7 +21,7 @@ class Notification extends Model
         'is_read',
         'notification_type',
         'icon',
-        'bg_color',
+        'bg_color'
     ];
 
     /**
