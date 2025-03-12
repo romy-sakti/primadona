@@ -48,12 +48,12 @@ class FrontendController extends Controller
 
     public function permohonanMasyarakat()
     {
-        $permohonan = Permohonanmasyarakat::all();
+        $permohonan = Permohonanmasyarakat::orderBy('created_at', 'desc')->get();
         return view('frontend.permohonan-masyarakat.detail-permohonan', compact('permohonan'));
     }
     public function peraturan()
     {
-        $peraturan = Peraturan::all();
+        $peraturan = Peraturan::orderBy('created_at', 'desc')->get();
         return view('frontend.peraturan.peraturan', compact('peraturan'));
     }
 
