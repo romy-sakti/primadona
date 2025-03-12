@@ -9,10 +9,10 @@
         <div class="d-table-cell">
             <div class="container">
                 <div class="page-content">
-                    <h2>Permohonan Masyarakat</h2>
+                    <h2>Database Permohonan Masyarakat</h2>
                     <ul>
                         <li><a href="{{ route('portal') }}">Beranda <i class="las la-angle-right"></i></a></li>
-                        <li>Permohonan Masyarakat</li>
+                        <li>Database Permohonan Masyarakat</li>
                     </ul>
                 </div>
             </div>
@@ -24,7 +24,7 @@
 <div class="privacy-policy ptb-100">
     <div class="container">
         <div class="privacy-policy-text">
-            <h2>Informasi Permohonan</h2>
+            <h2>Informasi Database Permohonan Masyarakat</h2>
             <table id="permohonanTable" class="table table-striped table-bordered">
                 <thead>
                     <tr>
