@@ -37,26 +37,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($peraturan as $item)
-                    <tr>
-                        <td>{{ $item->judul }}</td>
-                        <td>{{ $item->nomor_peraturan }}</td>
-                        <td>{{ $item->tahun }}</td>
-                        <td>{{ $item->keterangan }}</td>
-                        <td class="text-center">
-                            @if($item->file_peraturan && Storage::exists($item->file_peraturan))
-                                <a href="{{ $item->file_url }}" class="btn btn-primary btn-sm" target="_blank">
-                                    <i class="las la-file-pdf"></i> PDF
-                                </a>
-                            @else
-                                <span class="badge bg-secondary">
-                                    <i class="las la-file-alt"></i> Dokumen tidak tersedia
-                                </span>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
+    @foreach($peraturan as $item)
+    <tr>
+        <td>{{ $item->judul }}</td>
+        <td>{{ $item->nomor_peraturan }}</td>
+        <td>{{ $item->tahun }}</td>
+        <td>{{ $item->keterangan }}</td>
+        <td class="text-center">
+            @php
+                $filePath = 'peraturan/' . $item->file_peraturan; 
+            @endphp
+            @if($item->file_peraturan && Storage::disk('public')->exists($filePath))
+            <a href="{{ env('APP_URL') . '/storage/' . $filePath }}" class="btn btn-primary btn-sm" target="_blank">
+    <i class="las la-file-pdf"></i> PDF
+</a>
+
+            @else
+                <span class="badge bg-secondary">
+                    <i class="las la-file-alt"></i> Dokumen tidak tersedia
+                </span>
+            @endif
+        </td>
+    </tr>
+    @endforeach
+</tbody>
+
+
             </table>
         </div>
     </div>

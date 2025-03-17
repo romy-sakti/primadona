@@ -37,8 +37,15 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                @include('stisla.includes.forms.inputs.input', ['required'=>true, 'type'=>'text',
-                                'id'=>'tahun', 'name'=>'tahun', 'label'=>__('Tahun')])
+                                <div class="form-group">
+                                    <label for="tahun">{{ __('Tahun') }}</label>
+                                    <select class="form-control" id="tahun" name="tahun" required>
+                                        @for($i = date('Y'); $i >= 2000; $i--)
+                                        <option value="{{ $i }}" {{ isset($d) && $d->tahun == $i ? 'selected' : '' }}>{{
+                                            $i }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="col-md-6">

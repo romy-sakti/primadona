@@ -280,7 +280,10 @@ class NarasisidangkelilingController extends Controller
     {
         // Hapus file foto dari storage jika ada
         if ($narasisidangkeliling->foto) {
-            $fotos = json_decode($narasisidangkeliling->foto, true);
+            $fotos = is_string($narasisidangkeliling->foto) ?
+                json_decode($narasisidangkeliling->foto, true) :
+                $narasisidangkeliling->foto;
+
             if (is_array($fotos)) {
                 foreach ($fotos as $foto) {
                     $fotoPath = 'public/narasisidangkeliling/foto/' . $foto;
@@ -293,7 +296,10 @@ class NarasisidangkelilingController extends Controller
 
         // Hapus file dokumen dari storage jika ada
         if ($narasisidangkeliling->dokumen) {
-            $dokumens = json_decode($narasisidangkeliling->dokumen, true);
+            $dokumens = is_string($narasisidangkeliling->dokumen) ?
+                json_decode($narasisidangkeliling->dokumen, true) :
+                $narasisidangkeliling->dokumen;
+
             if (is_array($dokumens)) {
                 foreach ($dokumens as $dokumen) {
                     $dokumenPath = 'public/narasisidangkeliling/dokumen/' . $dokumen;

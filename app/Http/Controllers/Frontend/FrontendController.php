@@ -53,7 +53,9 @@ class FrontendController extends Controller
     }
     public function peraturan()
     {
-        $peraturan = Peraturan::orderBy('created_at', 'desc')->get();
+        $peraturan = Peraturan::orderBy('tahun', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('frontend.peraturan.peraturan', compact('peraturan'));
     }
 
@@ -102,7 +104,7 @@ class FrontendController extends Controller
 
             // Dapatkan semua user dengan role pntjt dan dukcapiltjt
             $users = $userRepository->getUsersByRoles(['pntjt', 'dukcapiltjt']);
-            
+
             // Debug: Cek jumlah user yang ditemukan
             \Log::info('Users found: ' . $users->count());
 
@@ -114,16 +116,16 @@ class FrontendController extends Controller
                     $notificationType = 'upload_penetapan';
                     $icon = 'file-upload';
                     $bgColor = 'primary';
-                    
+
                     $notification = $notificationRepository->createNotif(
-                        $title, 
-                        $content, 
-                        $user->id, 
-                        $notificationType, 
-                        $icon, 
+                        $title,
+                        $content,
+                        $user->id,
+                        $notificationType,
+                        $icon,
                         $bgColor
                     );
-                    
+
                     // Debug: Log notifikasi yang dibuat
                     \Log::info('Notification created:', [
                         'user_id' => $user->id,

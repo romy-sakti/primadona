@@ -150,7 +150,9 @@ class PeraturanController extends Controller
         if ($request->hasFile('file_peraturan')) {
             $file = $request->file('file_peraturan');
             $filename = time() . '_' . $file->getClientOriginalName();
+            // Simpan langsung ke direktori 'peraturan'
             $file->storeAs('public/peraturan', $filename);
+            // Simpan hanya nama file
             $data['file_peraturan'] = $filename;
         }
 
@@ -210,29 +212,19 @@ class PeraturanController extends Controller
         if ($request->hasFile('file_peraturan')) {
             // Hapus file lama jika ada
             if ($peraturan->file_peraturan) {
-                Storage::delete('public/peraturan/' . $peraturan->file_peraturan);
+                Storage::disk('public')->delete('peraturan/' . $peraturan->file_peraturan);
             }
 
+            // Upload file baru
             $file = $request->file('file_peraturan');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('public/peraturan', $filename);
+
+            // Simpan hanya nama file
             $data['file_peraturan'] = $filename;
         }
 
         $newData = $this->peraturanRepository->update($data, $peraturan->id);
-
-        // use this if you want to create notification data
-        // $title = 'Notify Title';
-        // $content = 'lorem ipsum dolor sit amet';
-        // $userId = 2;
-        // $notificationType = 'transaksi masuk';
-        // $icon = 'bell'; // font awesome
-        // $bgColor = 'primary'; // primary, danger, success, warning
-        // $this->NotificationRepository->createNotif($title,  $content, $userId,  $notificationType, $icon, $bgColor);
-
-        // gunakan jika mau kirim email
-        // $this->emailService->methodName($newData);
-
         logUpdate("peraturan", $peraturan, $newData);
 
         $successMessage = successMessageUpdate("peraturan");
