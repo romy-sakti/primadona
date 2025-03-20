@@ -2,7 +2,36 @@
  *
  * You can write your CSS code here, DO NOT touch the default JavaScript file
  * because it will make it harder for you to update.
- * 
+ *
  */
+
+/* Override font untuk semua elemen */
+* {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+/* Override untuk heading */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+/* Override untuk input dan button */
+input,
+button,
+select,
+textarea {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+}
 
 /*# sourceMappingURL=custom.css.map */
