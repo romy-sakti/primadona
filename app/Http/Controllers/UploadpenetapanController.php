@@ -53,7 +53,7 @@ class UploadpenetapanController extends Controller
      * @var FileService
      */
     private EmailService $emailService;
-    
+
     /**
      * exportable
      *
@@ -104,7 +104,7 @@ class UploadpenetapanController extends Controller
             'canDelete'        => $user->can('uploadpenetapan Hapus'),
             'canImportExcel'   => $user->can('Order Impor Excel') && $this->importable,
             'canExport'        => $user->can('Order Ekspor') && $this->exportable,
-            'title'            => __('uploadpenetapan'),
+            'title'            => __('Penetapan'),
             'routeCreate'      => route('uploadpenetapans.create'),
             'routePdf'         => route('uploadpenetapans.pdf'),
             'routePrint'       => route('uploadpenetapans.print'),
@@ -124,8 +124,8 @@ class UploadpenetapanController extends Controller
     public function create()
     {
         return view('stisla.uploadpenetapans.form', [
-            'title'         => __('uploadpenetapan'),
-            'fullTitle'     => __('Tambah uploadpenetapan'),
+            'title'         => __('Penetapan'),
+            'fullTitle'     => __('Tambah Penetapan'),
             'routeIndex'    => route('uploadpenetapans.index'),
             'action'        => route('uploadpenetapans.store')
         ]);
