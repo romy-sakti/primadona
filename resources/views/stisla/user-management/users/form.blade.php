@@ -1,71 +1,75 @@
 @extends('stisla.layouts.app-form')
 
 @section('rowForm')
-  @isset($d)
-    @method('PUT')
-  @endisset
+@isset($d)
+@method('PUT')
+@endisset
 
-  @csrf
-  <div class="row">
+@csrf
+<div class="row">
     <div class="col-md-6">
-      @include('stisla.includes.forms.inputs.input-name', ['required' => true])
+        @include('stisla.includes.forms.inputs.input-name', ['required' => true])
     </div>
     <div class="col-md-6">
-      @include('stisla.includes.forms.inputs.input', [
-          'id' => 'phone_number',
-          'name' => 'phone_number',
-          'label' => __('No HP'),
-          'type' => 'text',
-          'required' => false,
-          'icon' => 'fas fa-phone',
-      ])
+        @include('stisla.includes.forms.inputs.input', [
+        'id' => 'phone_number',
+        'name' => 'phone_number',
+        'label' => __('No HP'),
+        'type' => 'text',
+        'required' => false,
+        'icon' => 'fas fa-phone',
+        ])
     </div>
     <div class="col-md-6">
-      @include('stisla.includes.forms.inputs.input', [
-          'id' => 'birth_date',
-          'name' => 'birth_date',
-          'label' => __('Tanggal Lahir'),
-          'type' => 'date',
-          'required' => false,
-          'icon' => 'fas fa-calendar',
-      ])
+        @include('stisla.includes.forms.inputs.input', [
+        'id' => 'birth_date',
+        'name' => 'birth_date',
+        'label' => __('Tanggal Lahir'),
+        'type' => 'date',
+        'required' => false,
+        'icon' => 'fas fa-calendar',
+        ])
     </div>
     <div class="col-md-6">
-      @include('stisla.includes.forms.inputs.input', [
-          'id' => 'address',
-          'name' => 'address',
-          'label' => __('Alamat'),
-          'type' => 'text',
-          'required' => false,
-          'icon' => 'fas fa-map-marker-alt',
-      ])
+        @include('stisla.includes.forms.inputs.input', [
+        'id' => 'address',
+        'name' => 'address',
+        'label' => __('Alamat'),
+        'type' => 'text',
+        'required' => false,
+        'icon' => 'fas fa-map-marker-alt',
+        ])
     </div>
     @if (count($roleOptions) > 1)
-      {{-- <div class="col-md-6">
-                    @include('stisla.includes.forms.selects.select', ['id' => 'role', 'name' => 'role', 'options' => $roleOptions, 'label' => 'Role', 'required' => true])
-                  </div> --}}
-      <div class="col-md-6">
+    {{-- <div class="col-md-6">
+        @include('stisla.includes.forms.selects.select', ['id' => 'role', 'name' => 'role', 'options' => $roleOptions,
+        'label' => 'Role', 'required' => true])
+    </div> --}}
+    <div class="col-md-6">
         @include('stisla.includes.forms.selects.select2', [
-            'id' => 'role',
-            'name' => 'role',
-            'options' => $roleOptions,
-            'label' => __('Pilih Role'),
-            'required' => true,
-            'multiple' => true,
+        'id' => 'role',
+        'name' => 'role',
+        'options' => auth()->user()->hasRole('pntjt') ?
+        collect($roleOptions)->filter(function($role) {
+        return $role === 'user';
+        })->toArray() : $roleOptions,
+        'label' => __('Pilih Role'),
+        'required' => true,
+        'multiple' => true,
         ])
-      </div>
+    </div>
     @elseif(count($roleOptions) == 1)
-      <input type="hidden" name="role" value="{{ collect($roleOptions)->first() }}">
+    <input type="hidden" name="role" value="{{ collect($roleOptions)->first() }}">
     @endif
     <div class="col-md-6">
-      @include('stisla.includes.forms.inputs.input-email')
+        @include('stisla.includes.forms.inputs.input-email')
     </div>
     <div class="col-md-6">
-      @include('stisla.includes.forms.inputs.input-password', [
-          'hint' => isset($d) ? 'Password bisa dikosongi' : false,
-          'required' => !isset($d),
-          'value' => isset($d) ? '' : null,
-      ])
+        @include('stisla.includes.forms.inputs.input-password', [
+        'hint' => isset($d) ? 'Password bisa dikosongi' : false,
+        'required' => !isset($d),
+        'value' => isset($d) ? '' : null,
+        ])
     </div>
-  </div>
+</div>
 @endsection

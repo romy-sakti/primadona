@@ -23,21 +23,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <!-- Ketentuan Penetapan -->
-            <div class="col-12 mb-5">
+            <div class="col-12 mb-0">
                 <div class="services-details">
                     <div class="services-details-content">
-                        <h3>Ketentuan Penetapan</h3>
-                        @if (!empty($ketentuan))
-                        @foreach ($ketentuan as $item)
-                        <div class="mb-4">
-                            {!! $item->konten !!}
+
+                        <div class="alert alert-warning">
+                            <h5 class="fw-bold">Catatan</h5>
+                            <p class="mb-0">Pemohon dapat Upload Penetapan apabila sudah membayar biaya salinan
+                                penetapan melalui Virtual Akun pada aplikasi Ecourt.</p>
                         </div>
-                        @endforeach
-                        @else
-                        <div class="alert alert-info">
-                            Belum ada data ketentuan penetapan.
-                        </div>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -48,6 +42,7 @@
                     <div class="services-details-content">
                         <h3>Form Upload Penetapan</h3>
                         <p>Silahkan upload dokumen penetapan pengadilan dengan mengisi form di bawah ini.</p>
+                        <p><small class="text-danger">* Wajib diisi</small></p>
 
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">

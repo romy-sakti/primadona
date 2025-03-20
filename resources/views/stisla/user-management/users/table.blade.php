@@ -10,7 +10,7 @@ $isAjaxYajra = $isAjaxYajra ?? false;
     && $canExport) data-export="true" data-title="{{ $title }}" @endif>
     <thead>
         <tr>
-            <th class="text-center">#</th>
+            <th class="text-center">No.</th>
             <th>{{ __('Nama') }}</th>
             <th>{{ __('No HP') }}</th>
             <th>{{ __('Tanggal Lahir') }}</th>

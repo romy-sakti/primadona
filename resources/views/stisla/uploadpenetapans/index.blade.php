@@ -88,7 +88,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fa fa-users"></i> {{ $title }}</h4>
+                    <h4><i class="fas fa-file-upload"></i> {{ $title }}</h4>
 
                     <div class="card-header-action">
                         @if ($canImportExcel)

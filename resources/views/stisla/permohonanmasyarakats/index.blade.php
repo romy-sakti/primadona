@@ -112,7 +112,7 @@
                             data-export="true" data-title="{{ $title }}" @endif>
                             <thead>
                                 <tr>
-                                    <th class="text-center">#</th>
+                                    <th class="text-center">No.</th>
                                     <th class="text-center">{{ __('Nama Pemohon') }}</th>
                                     <th class="text-center">{{ __('Jenis Permohonan') }}</th>
                                     <th class="text-center">{{ __('Nomor Perkara') }}</th>

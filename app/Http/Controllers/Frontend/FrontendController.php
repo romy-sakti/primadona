@@ -53,9 +53,7 @@ class FrontendController extends Controller
     }
     public function peraturan()
     {
-        $peraturan = Peraturan::orderBy('tahun', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $peraturan = Peraturan::orderBy('created_at', 'desc')->get();
         return view('frontend.peraturan.peraturan', compact('peraturan'));
     }
 

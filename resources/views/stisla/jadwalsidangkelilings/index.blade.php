@@ -112,14 +112,14 @@
                             data-export="true" data-title="{{ $title }}" @endif>
                             <thead>
                                 <tr>
-                                    <th class="text-center">#</th>
+                                    <th class="text-center">No.</th>
                                     <th class="text-center">{{ __('Tanggal Sidang') }}</th>
                                     <th class="text-center">{{ __('Jam') }}</th>
                                     <th class="text-center">{{ __('Nama Pemohon') }}</th>
                                     <th class="text-center">{{ __('Tempat Sidang') }}</th>
                                     <th class="text-center">{{ __('Agenda Sidang') }}</th>
                                     <th class="text-center">{{ __('Hakim') }}</th>
-                                    <th class="text-center">{{ __('Panitera Penggati') }}</th>
+                                    <th class="text-center">{{ __('Panitera Pengganti') }}</th>
                                     <th class="text-center">{{ __('Nomor Perkara') }}</th>
                                     <th>{{ __('Aksi') }}</th>
                                 </tr>

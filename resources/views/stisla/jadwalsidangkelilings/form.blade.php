@@ -64,8 +64,36 @@
                             </div>
 
                             <div class="col-md-6">
-                                @include('stisla.includes.forms.inputs.input', ['required'=>true, 'type'=>'text',
-                                'id'=>'tempat_sidang', 'name'=>'tempat_sidang', 'label'=>__('Tempat Sidang')])
+                                <div class="form-group">
+                                    <label for="tempat_sidang">{{ __('Tempat Sidang') }} <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control select2" id="tempat_sidang" name="tempat_sidang"
+                                        required>
+                                        <option value="" disabled selected>-- Pilih Kecamatan --</option>
+                                        <option value="Muara Sabak Barat" {{ isset($d) && $d->tempat_sidang === 'Muara
+                                            Sabak Barat' ? 'selected' : '' }}>Muara Sabak Barat</option>
+                                        <option value="Muara Sabak Timur" {{ isset($d) && $d->tempat_sidang === 'Muara
+                                            Sabak Timur' ? 'selected' : '' }}>Muara Sabak Timur</option>
+                                        <option value="Mendahara" {{ isset($d) && $d->tempat_sidang === 'Mendahara' ?
+                                            'selected' : '' }}>Mendahara</option>
+                                        <option value="Mendahara Ulu" {{ isset($d) && $d->tempat_sidang === 'Mendahara
+                                            Ulu' ? 'selected' : '' }}>Mendahara Ulu</option>
+                                        <option value="Kuala Jambi" {{ isset($d) && $d->tempat_sidang === 'Kuala Jambi'
+                                            ? 'selected' : '' }}>Kuala Jambi</option>
+                                        <option value="Rantau Rasau" {{ isset($d) && $d->tempat_sidang === 'Rantau
+                                            Rasau' ? 'selected' : '' }}>Rantau Rasau</option>
+                                        <option value="Berbak" {{ isset($d) && $d->tempat_sidang === 'Berbak' ?
+                                            'selected' : '' }}>Berbak</option>
+                                        <option value="Nipah Panjang" {{ isset($d) && $d->tempat_sidang === 'Nipah
+                                            Panjang' ? 'selected' : '' }}>Nipah Panjang</option>
+                                        <option value="Sadu" {{ isset($d) && $d->tempat_sidang === 'Sadu' ? 'selected' :
+                                            '' }}>Sadu</option>
+                                        <option value="Dendang" {{ isset($d) && $d->tempat_sidang === 'Dendang' ?
+                                            'selected' : '' }}>Dendang</option>
+                                        <option value="Geragai" {{ isset($d) && $d->tempat_sidang === 'Geragai' ?
+                                            'selected' : '' }}>Geragai</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="col-md-6">
@@ -81,7 +109,7 @@
                             <div class="col-md-6">
                                 @include('stisla.includes.forms.inputs.input', ['required'=>true, 'type'=>'text',
                                 'id'=>'panitera_pengganti', 'name'=>'panitera_pengganti', 'label'=>__('Panitera
-                                Penggati')])
+                                Pengganti')])
                             </div>
 
                             <div class="col-md-6">
@@ -111,9 +139,14 @@
 @endsection
 
 @push('css')
-
+<link rel="stylesheet" href="{{ asset('stisla/node_modules/select2/dist/css/select2.min.css') }}">
 @endpush
 
 @push('js')
-
+<script src="{{ asset('stisla/node_modules/select2/dist/js/select2.full.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
 @endpush

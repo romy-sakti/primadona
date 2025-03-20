@@ -112,7 +112,7 @@
                             data-export="true" data-title="{{ $title }}" @endif>
                             <thead>
                                 <tr>
-                                    <th class="text-center">#</th>
+                                    <th class="text-center">No.</th>
                                     <th class="text-center">{{ __('Nama jenis') }}</th>
                                     <th class="text-center">{{ __('Deskripsi') }}</th>
                                     <th>{{ __('Aksi') }}</th>

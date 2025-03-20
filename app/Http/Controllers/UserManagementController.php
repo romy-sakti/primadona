@@ -150,7 +150,7 @@ class UserManagementController extends StislaController
         $this->userRepository->syncRoles($user, $request->role);
         logCreate('Pengguna', $user);
         $successMessage = successMessageCreate('Pengguna');
-        return redirect()->back()->with('successMessage', $successMessage);
+        return redirect()->route('user-management.users.index')->with('successMessage', $successMessage);
     }
 
     /**
@@ -207,7 +207,7 @@ class UserManagementController extends StislaController
         $this->userRepository->syncRoles($userNew, $request->role);
         logUpdate('Pengguna', $user, $userNew);
         $successMessage = successMessageUpdate('Pengguna');
-        return redirect()->back()->with('successMessage', $successMessage);
+        return redirect()->route('user-management.users.index')->with('successMessage', $successMessage);
     }
 
     /**

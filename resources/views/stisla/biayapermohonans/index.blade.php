@@ -88,7 +88,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fa fa-fas fa-rupiah-sign"></i> {{ $title }}</h4>
+                    <h4><i class="fas fa-coins"></i> {{ $title }}</h4>
 
                     <div class="card-header-action">
                         @if ($canImportExcel)
@@ -112,7 +112,7 @@
                             data-export="true" data-title="{{ $title }}" @endif>
                             <thead>
                                 <tr>
-                                    <th class="text-center">#</th>
+                                    <th class="text-center">No.</th>
                                     <th class="text-center">{{ __('Biaya Pendaftaran') }}</th>
                                     <th class="text-center">{{ __('Biaya ATK / Administrasi') }}</th>
                                     <th class="text-center">{{ __('PNBP Panggilan') }}</th>
