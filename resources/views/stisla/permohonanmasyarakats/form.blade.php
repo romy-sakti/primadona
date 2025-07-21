@@ -176,18 +176,31 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="col-md-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ __('Dokumen Penetapan') }} <span class="text-danger">*</span></label>
+                                    <label>{{ __('Dokumen Penetapan (PDF)') }} <span
+                                            class="text-danger">*</span></label>
                                     @if(auth()->user()->hasRole('dukcapiltjt') && isset($d))
-                                    <input type="text" class="form-control" disabled
-                                        value="{{ $d->dokumen_penetapan ?? '' }}" />
-                                    @else
-                                    <input type="text" class="form-control" name="dokumen_penetapan" required
-                                        value="{{ $d->dokumen_penetapan ?? '' }}" />
+                                    @if(!empty($d->dokumen_penetapan))
+                                    <a href="{{ asset('storage/' . $d->dokumen_penetapan) }}" target="_blank"
+                                        class="btn btn-sm btn-primary mb-2">
+                                        Lihat Dokumen
+                                    </a>
                                     @endif
+                                    <input type="file" class="form-control" accept="application/pdf" disabled />
+                                    @else
+                                    @if(isset($d) && !empty($d->dokumen_penetapan))
+                                    <a href="{{ asset('storage/' . $d->dokumen_penetapan) }}" target="_blank"
+                                        class="btn btn-sm btn-primary mb-2">
+                                        Lihat Dokumen
+                                    </a>
+                                    @endif
+                                    <input type="file" class="form-control" name="dokumen_penetapan"
+                                        accept="application/pdf" {{ isset($d) ? '' : 'required' }} />
+                                    @endif
+                                    <small class="form-text text-muted">Hanya file PDF yang diperbolehkan.</small>
                                 </div>
-                            </div> --}}
+                            </div>
 
                             <div class="col-md-12">
                                 <br>

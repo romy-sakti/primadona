@@ -135,7 +135,16 @@
                                     <td>{{ $item->nomor_perkara }}</td>
                                     <td>{{ $item->status_permohonan }}</td>
                                     <td>{{ $item->keterangan }}</td>
-                                    <td>{{ $item->dokumen_penetapan }}</td>
+                                    <td>
+                                        @if($item->dokumen_penetapan)
+                                        <a href="{{ asset('storage/' . $item->dokumen_penetapan) }}" target="_blank"
+                                            class="btn btn-sm btn-primary">
+                                            Lihat
+                                        </a>
+                                        @else
+                                        <span class="text-danger">Belum ada</span>
+                                        @endif
+                                    </td>
                                     <td>{{ $item->nomor_telepon }}</td>
                                     <td>{{ $item->alamat_pemohon }}</td>
                                     <td>{{ $item->tempat_lahir }}</td>
@@ -227,7 +236,16 @@ $excelExampleLink])
                             </tr>
                             <tr>
                                 <th>Dokumen Penetapan</th>
-                                <td>{{ $item->dokumen_penetapan }}</td>
+                                <td>
+                                    @if($item->dokumen_penetapan)
+                                    <a href="{{ asset('storage/' . $item->dokumen_penetapan) }}" target="_blank"
+                                        class="btn btn-sm btn-primary">
+                                        Lihat Dokumen
+                                    </a>
+                                    @else
+                                    <span class="text-danger">Belum ada</span>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <th>Nomor Telepon</th>

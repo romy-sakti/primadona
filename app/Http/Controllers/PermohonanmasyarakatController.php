@@ -167,6 +167,13 @@ class PermohonanmasyarakatController extends Controller
             $data['keterangan'] = $request->keterangan;
         }
 
+        // === PROSES UPLOAD FILE PDF ===
+        if ($request->hasFile('dokumen_penetapan')) {
+            $file = $request->file('dokumen_penetapan');
+            $path = $file->store('dokumen_penetapan', 'public'); // simpan di storage/app/public/dokumen_penetapan
+            $data['dokumen_penetapan'] = $path;
+        }
+
         $result = $this->permohonanmasyarakatRepository->create($data);
         logCreate("permohonan_masyarakat", $result);
 
@@ -210,6 +217,13 @@ class PermohonanmasyarakatController extends Controller
         } else {
             // User lain bisa update semua field kecuali keterangan
             $data = $request->except(['keterangan']);
+
+            // === PROSES UPLOAD FILE PDF ===
+            if ($request->hasFile('dokumen_penetapan')) {
+                $file = $request->file('dokumen_penetapan');
+                $path = $file->store('dokumen_penetapan', 'public');
+                $data['dokumen_penetapan'] = $path;
+            }
         }
 
         try {
