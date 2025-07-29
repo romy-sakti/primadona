@@ -78,15 +78,18 @@ class UserManagementController extends StislaController
 
         // Filter role options untuk PNTJT dan Dukcapil TJT
         if (auth()->user()->hasRole(['pntjt', 'dukcapiltjt'])) {
-            $roleOptions = collect($roleOptions)->filter(function($value, $key) {
-                return in_array($key, ['user', 'pntjt', 'dukcapiltjt']);
-            })->toArray();
+            $roleOptions = collect($roleOptions)
+                ->filter(function($value, $key) {
+                    return $value === 'user';  // Hanya tampilkan role 'user'
+                })->toArray();
         }
 
-        if ($user->roles->count() > 1)
+        if ($user->roles->count() > 1) {
             $user->role = $user->roles->pluck('id')->toArray();
-        else
+        } else {
             $user->role = $user->roles->first()->id ?? null;
+        }
+
         $defaultData = $this->getDefaultDataDetail(__('Pengguna'), 'user-management.users', $user, $isDetail);
         return array_merge($defaultData, [
             'roleOptions' => $roleOptions,
@@ -182,32 +185,39 @@ class UserManagementController extends StislaController
      */
     public function update(UserRequest $request, User $user)
     {
-        // Validasi role untuk PNTJT dan Dukcapil TJT
-        if (auth()->user()->hasRole(['pntjt', 'dukcapiltjt'])) {
-            // Cek jika user yang diedit memiliki role protected
-            if ($user->hasRole(['superadmin', 'admin'])) {
-                return redirect()->route('user-management.users.index')
-                    ->with('errorMessage', 'Anda tidak memiliki akses untuk mengubah data pengguna ini.');
-            }
+        try {
+            // Validasi role untuk PNTJT dan Dukcapil TJT
+            if (auth()->user()->hasRole(['pntjt', 'dukcapiltjt'])) {
+                if ($user->hasRole(['superadmin', 'admin'])) {
+                    return redirect()->route('user-management.users.index')
+                        ->with('errorMessage', 'Anda tidak memiliki akses untuk mengubah data pengguna ini.');
+                }
 
-            // Validasi role yang dipilih
-            $allowedRoles = ['user', 'pntjt', 'dukcapiltjt'];
-            $requestedRoles = (array) $request->role;
+                $allowedRoles = ['user'];
+                $requestedRoles = (array) $request->role;
 
-            foreach ($requestedRoles as $role) {
-                if (!in_array($role, $allowedRoles)) {
-                    return redirect()->back()
-                        ->with('errorMessage', 'Anda hanya bisa memilih role user, pntjt, atau dukcapiltjt.');
+                foreach ($requestedRoles as $role) {
+                    if (!in_array($role, $allowedRoles)) {
+                        return redirect()->back()
+                            ->with('errorMessage', 'Anda hanya bisa memilih role user.');
+                    }
                 }
             }
-        }
 
-        $data = $this->getStoreData($request);
-        $userNew = $this->userRepository->update($data, $user->id);
-        $this->userRepository->syncRoles($userNew, $request->role);
-        logUpdate('Pengguna', $user, $userNew);
-        $successMessage = successMessageUpdate('Pengguna');
-        return redirect()->route('user-management.users.index')->with('successMessage', $successMessage);
+            $data = $this->getStoreData($request);
+            $userNew = $this->userRepository->update($data, $user->id, ['*']);
+            $this->userRepository->syncRoles($userNew, $request->role);
+
+            logUpdate('Pengguna', $user, $userNew);
+            \Artisan::call('cache:clear');
+
+            $successMessage = successMessageUpdate('Pengguna');
+            return redirect()->route('user-management.users.index')->with('successMessage', $successMessage);
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('errorMessage', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+        }
     }
 
     /**

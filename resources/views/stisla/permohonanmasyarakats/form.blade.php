@@ -128,11 +128,11 @@
                                 <div class="form-group">
                                     <label>{{ __('Nomor Telepon') }} <span class="text-danger">*</span></label>
                                     @if(auth()->user()->hasRole('dukcapiltjt') && isset($d))
-                                    <input type="text" class="form-control" disabled
+                                    <input type="text" class="form-control" id="nomor_telepon" disabled
                                         value="{{ $d->nomor_telepon ?? '' }}" />
                                     @else
-                                    <input type="text" class="form-control" name="nomor_telepon" required
-                                        value="{{ $d->nomor_telepon ?? '' }}" />
+                                    <input type="text" class="form-control" name="nomor_telepon" id="nomor_telepon"
+                                        required value="{{ $d->nomor_telepon ?? '' }}" />
                                     @endif
                                 </div>
                             </div>
@@ -249,13 +249,26 @@
 <script>
     $(document).ready(function() {
         $('.select2').select2();
-    });
 
-    document.getElementById('nomor_telepon').addEventListener('input', function(e) {
-        this.value = this.value.replace(/[^0-9]/g, '');
-        if (this.value.length > 13) {
-            this.value = this.value.slice(0, 13);
-        }
+        // Hanya izinkan angka pada input nomor telepon
+        $('#nomor_telepon').on('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Cegah input selain angka dari keyboard
+        $('#nomor_telepon').on('keypress', function(e) {
+            if (e.which < 48 || e.which > 57) {
+                e.preventDefault();
+            }
+        });
+
+        // Cegah paste karakter non-angka
+        $('#nomor_telepon').on('paste', function(e) {
+            var pasteData = (e.originalEvent || e).clipboardData.getData('text');
+            if (/[^0-9]/.test(pasteData)) {
+                e.preventDefault();
+            }
+        });
     });
 
     // Pastikan ini dijalankan setelah dokumen dimuat

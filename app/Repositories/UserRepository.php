@@ -98,7 +98,7 @@ class UserRepository extends Repository
      */
     public function getUsers()
     {
-        $users = $this->model->with(['roles'])->latest()->get();
+        $users = $this->model->with(['roles'])->orderBy('name')->get();
         return $users;
     }
 

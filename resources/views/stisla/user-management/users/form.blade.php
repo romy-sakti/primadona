@@ -41,21 +41,28 @@
         ])
     </div>
     @if (count($roleOptions) > 1)
-    {{-- <div class="col-md-6">
-        @include('stisla.includes.forms.selects.select', ['id' => 'role', 'name' => 'role', 'options' => $roleOptions,
-        'label' => 'Role', 'required' => true])
-    </div> --}}
     <div class="col-md-6">
+        @php
+        // Jika yang login adalah PNTJT, hanya tampilkan role 'user'
+        if (auth()->user()->hasRole(['pntjt', 'dukcapiltjt'])) {
+        $filteredOptions = collect($roleOptions)
+        ->filter(function($value, $key) {
+        return $value === 'user'; // Hanya tampilkan role 'user'
+        })
+        ->toArray();
+        } else {
+        $filteredOptions = $roleOptions;
+        }
+        @endphp
+
         @include('stisla.includes.forms.selects.select2', [
         'id' => 'role',
         'name' => 'role',
-        'options' => auth()->user()->hasRole('pntjt') ?
-        collect($roleOptions)->filter(function($role) {
-        return $role === 'user';
-        })->toArray() : $roleOptions,
+        'options' => $filteredOptions,
         'label' => __('Pilih Role'),
         'required' => true,
         'multiple' => true,
+        'selected' => isset($d) ? $d->roles->pluck('id')->toArray() : []
         ])
     </div>
     @elseif(count($roleOptions) == 1)
