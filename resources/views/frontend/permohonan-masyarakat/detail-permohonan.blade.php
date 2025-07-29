@@ -70,7 +70,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-primary mb-4">Informasi Pemohon</h5>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="text-muted mb-2">Nama Pemohon</label>
                                     <div id="modal-nama" class="form-control-plaintext border-bottom"></div>
@@ -90,24 +90,6 @@
                                 <div class="mb-3">
                                     <label class="text-muted mb-2">Keterangan</label>
                                     <div id="modal-keterangan" class="form-control-plaintext border-bottom"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="text-muted mb-2">Nomor Telepon</label>
-                                    <div id="modal-telepon" class="form-control-plaintext border-bottom"></div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="text-muted mb-2">Alamat</label>
-                                    <div id="modal-alamat" class="form-control-plaintext border-bottom"></div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="text-muted mb-2">Tempat Lahir</label>
-                                    <div id="modal-tempat-lahir" class="form-control-plaintext border-bottom"></div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="text-muted mb-2">Tanggal Lahir</label>
-                                    <div id="modal-tanggal-lahir" class="form-control-plaintext border-bottom"></div>
                                 </div>
                             </div>
                         </div>
