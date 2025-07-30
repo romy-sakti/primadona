@@ -166,7 +166,7 @@ class JenispermohonanController extends Controller
         logCreate("jenis_permohonan", $result);
 
         $successMessage = successMessageCreate("jenis_permohonan");
-        return redirect()->back()->with('successMessage', $successMessage);
+        return redirect()->route('jenispermohonans.index')->with('successMessage', $successMessage);
     }
 
     /**
@@ -222,7 +222,7 @@ class JenispermohonanController extends Controller
         logUpdate("jenis_permohonan", $jenispermohonan, $newData);
 
         $successMessage = successMessageUpdate("jenis_permohonan");
-        return redirect()->back()->with('successMessage', $successMessage);
+        return redirect()->route('jenispermohonans.index')->with('successMessage', $successMessage);
     }
 
     /**
@@ -252,7 +252,7 @@ class JenispermohonanController extends Controller
         logDelete("jenis_permohonan", $jenispermohonan);
 
         $successMessage = successMessageDelete("jenis_permohonan");
-        return redirect()->back()->with('successMessage', $successMessage);
+        return redirect()->route('jenispermohonans.index')->with('successMessage', $successMessage);
     }
 
     /**
